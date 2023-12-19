@@ -43,11 +43,6 @@ y_2 <- dados_trat[c("quant_enfermeiros")]
 X <- dados_trat[!names(dados_trat) %in% c("tempo_internacao", "quant_enfermeiros")]
 
 kable(head(dados),align='l')
-
-y_1
-y_2
-X
-
 ```
 
 # Correlação das variáveis
