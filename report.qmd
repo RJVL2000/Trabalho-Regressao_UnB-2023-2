@@ -1,0 +1,86 @@
+---
+title: "Trabalho Final"
+subtitle: "REGRESSÃO LINEAR"
+author: "Camila, Maria Clara, Rafael & Tailine"
+date: "12/21/2023"
+format: html
+---
+
+```{r}
+#| message: false
+#| echo: false
+if (!require(pacman)) install.packages("pacman")
+pacman::p_load(tidyverse,readxl,knitr)
+```
+
+# Amostra
+
+```{r}
+#| echo: false
+
+# Importação de dados e renomeação de variáveis
+dados <- read_excel(#"C:/Users/User/Documents/GitHub/Trabalho-Regressao_UnB-2023-2/
+"Dados/Dados_trabalho_20232.xlsx")
+
+names(dados) <- c("id", "tempo_internacao", "idade", "prob_infeccao", "prop_culturas_rotina", "prop_raio_x_torax_rotina", "quant_leitos", "filiacao_escola_medicina", "regiao", "media_pacientes", "quant_enfermeiros", "servicos_disponiveis")
+
+
+# Tratamento de variáveis categóricas
+dados_trat <- dados %>%
+    mutate(
+        filiacao_escola_medicina = filiacao_escola_medicina == 1,
+        regiao_ne = regiao == 1,
+        regiao_nc = regiao == 2,
+        regiao_s = regiao == 3,
+        regiao = NULL
+    )
+
+# Separação em variáveis respostas e explicativas
+y_1 <- dados_trat[c("tempo_internacao")]
+
+y_2 <- dados_trat[c("quant_enfermeiros")]
+
+X <- dados_trat[!names(dados_trat) %in% c("tempo_internacao", "quant_enfermeiros")]
+
+kable(head(dados),align='l')
+
+y_1
+y_2
+X
+
+```
+
+# Correlação das variáveis
+```{r}
+#| echo: false
+kable(corr <- cor(dados[-1]),align='l')
+```
+
+# Análise exploratória
+```{r}
+#| echo: false
+dados %>% ggplot(aes(group = filiacao_escola_medicina, y = tempo_internacao)) +
+    geom_boxplot(fill='#ADD8E6')+
+    xlab('Filiação Escola de Medicina')+
+    ylab('Tempo de Internação')+
+    theme_classic()
+
+dados %>% ggplot(aes(group = regiao, y = tempo_internacao)) +
+    geom_boxplot(fill='#ADD8E6')+
+    xlab('Região')+
+    ylab('Tempo de Internação')+
+    theme_classic()
+
+dados %>% ggplot(aes(group = filiacao_escola_medicina, y = quant_enfermeiros)) +
+    geom_boxplot(fill='#ADD8E6')+
+    xlab('Filiação Escola de Medicina')+
+    ylab('Quantidade de Enfermeiros')+
+    theme_classic()
+
+dados %>% ggplot(aes(group = regiao, y = quant_enfermeiros)) +
+    geom_boxplot(fill='#ADD8E6')+
+    xlab('Região')+
+    ylab('Quantidade de Enfermeiros')+
+    theme_classic()
+
+```
