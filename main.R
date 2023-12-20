@@ -15,23 +15,31 @@ dados_trat <- dados %>%
         regiao = NULL
     )
 
+# Separando o banco em dados de treino e de validação
+set.seed(2023)
+indexes <- 1:nrow(dados_trat)
+index_treino <- sort(sample(indexes, 60))
+index_valid <- indexes[!(indexes %in% index_treino)]
+dados_treino <- dados_trat[index_treino, ]
+dados_valid <- dados_trat[index_valid, ]
+
 # Separação em variáveis respostas e explicativas
-y_1 <- dados_trat[c("tempo_internacao")]
+y_1 <- dados_treino[c("tempo_internacao")]
 
-y_2 <- dados_trat[c("quant_enfermeiros")]
+y_2 <- dados_treino[c("quant_enfermeiros")]
 
-X <- dados_trat[!names(dados_trat) %in% c("tempo_internacao", "quant_enfermeiros")]
+X <- dados_treino[!names(dados_treino) %in% c("tempo_internacao", "quant_enfermeiros")]
 
 # Correlação das variáveis
-(corr <- cor(dados[-1]))
+(corr <- cor(dados_treino[-1]))
 
 # Boxplots por variáveis categóricas
-dados %>% ggplot(aes(group = filiacao_escola_medicina, y = tempo_internacao)) +
+dados_treino %>% ggplot(aes(group = filiacao_escola_medicina, y = tempo_internacao)) +
     geom_boxplot()
-dados %>% ggplot(aes(group = regiao, y = tempo_internacao)) +
+dados_treino %>% ggplot(aes(group = regiao, y = tempo_internacao)) +
     geom_boxplot()
 
-dados %>% ggplot(aes(group = filiacao_escola_medicina, y = quant_enfermeiros)) +
+dados_treino %>% ggplot(aes(group = filiacao_escola_medicina, y = quant_enfermeiros)) +
     geom_boxplot()
-dados %>% ggplot(aes(group = regiao, y = quant_enfermeiros)) +
+dados_treino %>% ggplot(aes(group = regiao, y = quant_enfermeiros)) +
     geom_boxplot()
