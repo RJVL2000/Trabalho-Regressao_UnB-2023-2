@@ -1,0 +1,183 @@
+---
+title: "Trabalho Final"
+subtitle: "REGRESSÃO LINEAR"
+author: "Camila, Maria Clara, Rafael & Tailine"
+date: "12/21/2023"
+format: html
+---
+
+```{r}
+#| message: false
+#| echo: false
+if (!require(pacman)) install.packages("pacman")
+pacman::p_load(tidyverse,readxl,GGally,knitr,MASS)
+```
+
+```{r}
+#| echo: false
+# Amostra
+# Importação de dados e renomeação de variáveis
+dados <- read_excel(#"C:/Users/User/Documents/GitHub/Trabalho-Regressao_UnB-2023-2/
+"Dados/Dados_trabalho_20232.xlsx")
+
+names(dados) <- c("id", "tempo_internacao", "idade", "prob_infeccao", "prop_culturas_rotina", "prop_raio_x_torax_rotina", "quant_leitos", "filiacao_escola_medicina", "regiao", "media_pacientes", "quant_enfermeiros", "servicos_disponiveis")
+
+# Tratamento de variáveis categóricas
+dados_trat <- dados %>%
+    mutate(
+        filiacao_escola_medicina = filiacao_escola_medicina == 1,
+        #regiao_ne = regiao == 1,
+        #regiao_nc = regiao == 2,
+        #regiao_s = regiao == 3,
+        #regiao_w = regiao == 4,
+        id = NULL
+    )
+
+# Separando o banco em dados de treino e de validação
+set.seed(2023)
+indexes <- 1:nrow(dados_trat)
+index_treino <- sort(sample(indexes, 60))
+index_valid <- indexes[!(indexes %in% index_treino)]
+dados_treino <- dados_trat[index_treino, ]
+dados_valid <- dados_trat[index_valid, ]
+
+#kable(head(dados),align='l')
+```
+
+
+
+```{r}
+#| echo: false
+
+# Separação em variáveis respostas e explicativas
+y_1 <- dados_treino[c("tempo_internacao")]
+
+y_2 <- dados_treino[c("quant_enfermeiros")]
+
+X <- dados_treino[!names(dados_treino) %in% c("tempo_internacao", "quant_enfermeiros")]
+```
+
+
+# Correlação das variáveis
+```{r}
+#| echo: false
+corr1 <- cor(dados_treino)
+kable(corr1[,1])
+```
+
+```{r}
+corr <- which(abs(cor(dados_treino)) > .7, arr.ind = TRUE)
+corr_index <- sort(unique(c(corr[corr[, 1] != corr[, 2], ])))
+kable(cor(dados_treino)[corr_index, corr_index])
+```
+
+
+# Modelos
+## Hipotese 1
+Espera-se	 que	 o	 número	 de	 enfermeira(o)s	 esteja	 relacionado	 às	 instalações e	 serviços	disponíveis	através de	um	modelo	de	segunda	ordem.	Suspeita-se	também	que	varie	segundo	a	região.
+
+$$Y = \beta_0 + \beta_1 X_{i1}^{2} + \beta_2 X_{i2} + \epsilon
+$$
+
+```{r}
+dadosteste<-dados_treino %>%
+            mutate (regiao = as.factor(regiao),
+                    servicos_disponiveis2= servicos_disponiveis^2)
+modelo0 <- lm(quant_enfermeiros ~ idade + prob_infeccao + prop_culturas_rotina + prop_raio_x_torax_rotina + quant_leitos + filiacao_escola_medicina + regiao + media_pacientes + servicos_disponiveis, data=dadosteste)
+summary(modelo0)
+
+#modelo5<- lm(quant_enfermeiros ~ quant_leitos + servicos_disponiveis + regiao, data=dadosteste)
+#summary(modelo5)
+
+#modelo6<- lm(quant_enfermeiros ~ quant_leitos + servicos_disponiveis:regiao, data=dadosteste)
+#summary(modelo6)
+
+#modelo7<- lm(quant_enfermeiros ~ servicos_disponiveis:regiao, data=dadosteste)
+#summary(modelo7)
+
+#modelo7<- lm(quant_enfermeiros ~ servicos_disponiveis + servicos_disponiveis2 + regiao, data=dadosteste)
+#summary(modelo7)
+
+modelo9<- lm(quant_enfermeiros ~ servicos_disponiveis2 + regiao, data=dadosteste)
+summary(modelo9)
+
+modelo10<- lm(quant_enfermeiros ~ servicos_disponiveis, data=dadosteste)
+summary(modelo10)
+
+
+# *******************
+modelo8<- lm(quant_enfermeiros ~ quant_leitos + servicos_disponiveis2 + servicos_disponiveis:regiao, data=dadosteste)
+summary(modelo8)
+
+modelo0_stepwise <- step(modelo0, direction = "both")
+summary(modelo0_stepwise)
+
+modelo4<-lm(quant_enfermeiros ~ quant_leitos, data=dadosteste)
+summary(modelo4)
+
+# *******************
+
+```
+
+
+## Hipotese 2
+```{r}
+modelo1 <- lm(tempo_internacao ~ ., data=dadosteste)
+summary(modelo1)
+
+modelo_stepwise <- step(modelo1, direction = "both")
+summary(modelo_stepwise)
+
+modelo2<- lm(tempo_internacao ~ idade + prob_infeccao + regiao + media_pacientes + quant_enfermeiros, data=dadosteste)
+summary(modelo2)
+
+modelo3<- lm(tempo_internacao ~ idade + prob_infeccao + regiao + media_pacientes, data=dadosteste)
+summary(modelo3)
+
+#plot(modelo2)
+```
+
+```{r}
+#| eval: false
+anova <- aov(quant_enfermeiros ~ servicos_disponiveis + servicos_disponiveis**2 + regiao_nc + regiao_ne + regiao_s + regiao_w, data = dados_treino)
+summary(anova)
+```
+
+# Análise exploratória
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+#| eval: false
+
+#dados1 <- dados_treino %>% select(c())
+#ggpairs(dados_treino[,2:5])
+#ggview(width = 238, height = 163, units = "mm")
+
+
+
+dados_treino %>% ggplot(aes(x = filiacao_escola_medicina, y = tempo_internacao)) +
+    geom_boxplot(fill='#ADD8E6')+
+    xlab('Filiação Escola de Medicina')+
+    ylab('Tempo de Internação')+
+    theme_classic()
+
+dados_treino %>% ggplot(aes(x = regiao, y = tempo_internacao)) +
+    geom_boxplot(fill='#ADD8E6')+
+    xlab('Região')+
+    ylab('Tempo de Internação')+
+    theme_classic()
+
+dados_treino %>% ggplot(aes(x = filiacao_escola_medicina, y = quant_enfermeiros)) +
+    geom_boxplot(fill='#ADD8E6')+
+    xlab('Filiação Escola de Medicina')+
+    ylab('Quantidade de Enfermeiros')+
+    theme_classic()
+
+dados_treino %>% ggplot(aes(x = regiao, y = quant_enfermeiros)) +
+    geom_boxplot(fill='#ADD8E6')+
+    xlab('Região')+
+    ylab('Quantidade de Enfermeiros')+
+    theme_classic()
+
+```
