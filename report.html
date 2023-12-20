@@ -22,6 +22,40 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -36,6 +70,8 @@ ul.task-list li input[type="checkbox"] {
 <link href="report_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="report_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 </head>
 
@@ -75,342 +111,648 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<section id="amostra" class="level1">
-<h1>Amostra</h1>
-<div class="cell">
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 1%">
-<col style="width: 9%">
-<col style="width: 3%">
-<col style="width: 7%">
-<col style="width: 11%">
-<col style="width: 13%">
-<col style="width: 6%">
-<col style="width: 13%">
-<col style="width: 3%">
-<col style="width: 8%">
-<col style="width: 9%">
-<col style="width: 11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">id</th>
-<th style="text-align: left;">tempo_internacao</th>
-<th style="text-align: left;">idade</th>
-<th style="text-align: left;">prob_infeccao</th>
-<th style="text-align: left;">prop_culturas_rotina</th>
-<th style="text-align: left;">prop_raio_x_torax_rotina</th>
-<th style="text-align: left;">quant_leitos</th>
-<th style="text-align: left;">filiacao_escola_medicina</th>
-<th style="text-align: left;">regiao</th>
-<th style="text-align: left;">media_pacientes</th>
-<th style="text-align: left;">quant_enfermeiros</th>
-<th style="text-align: left;">servicos_disponiveis</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">7.13</td>
-<td style="text-align: left;">55.7</td>
-<td style="text-align: left;">4.1</td>
-<td style="text-align: left;">9.0</td>
-<td style="text-align: left;">39.6</td>
-<td style="text-align: left;">279</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">207</td>
-<td style="text-align: left;">241</td>
-<td style="text-align: left;">60</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">8.82</td>
-<td style="text-align: left;">58.2</td>
-<td style="text-align: left;">1.6</td>
-<td style="text-align: left;">3.8</td>
-<td style="text-align: left;">51.7</td>
-<td style="text-align: left;">80</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">51</td>
-<td style="text-align: left;">52</td>
-<td style="text-align: left;">40</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">8.34</td>
-<td style="text-align: left;">56.9</td>
-<td style="text-align: left;">2.7</td>
-<td style="text-align: left;">8.1</td>
-<td style="text-align: left;">74.0</td>
-<td style="text-align: left;">107</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">3</td>
-<td style="text-align: left;">82</td>
-<td style="text-align: left;">54</td>
-<td style="text-align: left;">20</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">8.95</td>
-<td style="text-align: left;">53.7</td>
-<td style="text-align: left;">5.6</td>
-<td style="text-align: left;">18.9</td>
-<td style="text-align: left;">122.8</td>
-<td style="text-align: left;">147</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">4</td>
-<td style="text-align: left;">53</td>
-<td style="text-align: left;">148</td>
-<td style="text-align: left;">40</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">5</td>
-<td style="text-align: left;">11.20</td>
-<td style="text-align: left;">56.5</td>
-<td style="text-align: left;">5.7</td>
-<td style="text-align: left;">34.5</td>
-<td style="text-align: left;">88.9</td>
-<td style="text-align: left;">180</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">1</td>
-<td style="text-align: left;">134</td>
-<td style="text-align: left;">151</td>
-<td style="text-align: left;">40</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">6</td>
-<td style="text-align: left;">9.76</td>
-<td style="text-align: left;">50.9</td>
-<td style="text-align: left;">5.1</td>
-<td style="text-align: left;">21.9</td>
-<td style="text-align: left;">97.0</td>
-<td style="text-align: left;">150</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">2</td>
-<td style="text-align: left;">147</td>
-<td style="text-align: left;">106</td>
-<td style="text-align: left;">40</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
 <section id="correlação-das-variáveis" class="level1">
 <h1>Correlação das variáveis</h1>
 <div class="cell">
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 11%">
-<col style="width: 7%">
-<col style="width: 5%">
-<col style="width: 6%">
-<col style="width: 9%">
-<col style="width: 11%">
-<col style="width: 5%">
-<col style="width: 11%">
-<col style="width: 5%">
-<col style="width: 7%">
-<col style="width: 8%">
-<col style="width: 9%">
-</colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;"></th>
-<th style="text-align: left;">tempo_internacao</th>
-<th style="text-align: left;">idade</th>
-<th style="text-align: left;">prob_infeccao</th>
-<th style="text-align: left;">prop_culturas_rotina</th>
-<th style="text-align: left;">prop_raio_x_torax_rotina</th>
-<th style="text-align: left;">quant_leitos</th>
-<th style="text-align: left;">filiacao_escola_medicina</th>
-<th style="text-align: left;">regiao</th>
-<th style="text-align: left;">media_pacientes</th>
-<th style="text-align: left;">quant_enfermeiros</th>
-<th style="text-align: left;">servicos_disponiveis</th>
+<th style="text-align: right;">x</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">tempo_internacao</td>
-<td style="text-align: left;">1.0000000</td>
-<td style="text-align: left;">0.1889140</td>
-<td style="text-align: left;">0.5334438</td>
-<td style="text-align: left;">0.3266838</td>
-<td style="text-align: left;">0.3824819</td>
-<td style="text-align: left;">0.4092652</td>
-<td style="text-align: left;">-0.2969510</td>
-<td style="text-align: left;">-0.4921304</td>
-<td style="text-align: left;">0.4738855</td>
-<td style="text-align: left;">0.3403671</td>
-<td style="text-align: left;">0.3555379</td>
+<td style="text-align: right;">1.0000000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">idade</td>
-<td style="text-align: left;">0.1889140</td>
-<td style="text-align: left;">1.0000000</td>
-<td style="text-align: left;">0.0010932</td>
-<td style="text-align: left;">-0.2258468</td>
-<td style="text-align: left;">-0.0188549</td>
-<td style="text-align: left;">-0.0588232</td>
-<td style="text-align: left;">0.1451264</td>
-<td style="text-align: left;">-0.0204319</td>
-<td style="text-align: left;">-0.0547747</td>
-<td style="text-align: left;">-0.0829446</td>
-<td style="text-align: left;">-0.0404514</td>
+<td style="text-align: right;">0.2689211</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">prob_infeccao</td>
-<td style="text-align: left;">0.5334438</td>
-<td style="text-align: left;">0.0010932</td>
-<td style="text-align: left;">1.0000000</td>
-<td style="text-align: left;">0.5591589</td>
-<td style="text-align: left;">0.4533916</td>
-<td style="text-align: left;">0.3597700</td>
-<td style="text-align: left;">-0.2330299</td>
-<td style="text-align: left;">-0.1922807</td>
-<td style="text-align: left;">0.3814111</td>
-<td style="text-align: left;">0.3939813</td>
-<td style="text-align: left;">0.4126007</td>
+<td style="text-align: right;">0.5761569</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">prop_culturas_rotina</td>
-<td style="text-align: left;">0.3266838</td>
-<td style="text-align: left;">-0.2258468</td>
-<td style="text-align: left;">0.5591589</td>
-<td style="text-align: left;">1.0000000</td>
-<td style="text-align: left;">0.4249620</td>
-<td style="text-align: left;">0.1397249</td>
-<td style="text-align: left;">-0.2427441</td>
-<td style="text-align: left;">-0.3082778</td>
-<td style="text-align: left;">0.1429482</td>
-<td style="text-align: left;">0.1988998</td>
-<td style="text-align: left;">0.1851311</td>
+<td style="text-align: right;">0.2310773</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">prop_raio_x_torax_rotina</td>
-<td style="text-align: left;">0.3824819</td>
-<td style="text-align: left;">-0.0188549</td>
-<td style="text-align: left;">0.4533916</td>
-<td style="text-align: left;">0.4249620</td>
-<td style="text-align: left;">1.0000000</td>
-<td style="text-align: left;">0.0458200</td>
-<td style="text-align: left;">-0.0866966</td>
-<td style="text-align: left;">-0.2963441</td>
-<td style="text-align: left;">0.0629135</td>
-<td style="text-align: left;">0.0773813</td>
-<td style="text-align: left;">0.1119276</td>
+<td style="text-align: right;">0.3871931</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">quant_leitos</td>
-<td style="text-align: left;">0.4092652</td>
-<td style="text-align: left;">-0.0588232</td>
-<td style="text-align: left;">0.3597700</td>
-<td style="text-align: left;">0.1397249</td>
-<td style="text-align: left;">0.0458200</td>
-<td style="text-align: left;">1.0000000</td>
-<td style="text-align: left;">-0.5911800</td>
-<td style="text-align: left;">-0.1056266</td>
-<td style="text-align: left;">0.9809977</td>
-<td style="text-align: left;">0.9155042</td>
-<td style="text-align: left;">0.7945244</td>
+<td style="text-align: right;">0.3131464</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">filiacao_escola_medicina</td>
-<td style="text-align: left;">-0.2969510</td>
-<td style="text-align: left;">0.1451264</td>
-<td style="text-align: left;">-0.2330299</td>
-<td style="text-align: left;">-0.2427441</td>
-<td style="text-align: left;">-0.0866966</td>
-<td style="text-align: left;">-0.5911800</td>
-<td style="text-align: left;">1.0000000</td>
-<td style="text-align: left;">0.1026676</td>
-<td style="text-align: left;">-0.6147573</td>
-<td style="text-align: left;">-0.5882397</td>
-<td style="text-align: left;">-0.5243903</td>
+<td style="text-align: right;">0.1326955</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">regiao</td>
-<td style="text-align: left;">-0.4921304</td>
-<td style="text-align: left;">-0.0204319</td>
-<td style="text-align: left;">-0.1922807</td>
-<td style="text-align: left;">-0.3082778</td>
-<td style="text-align: left;">-0.2963441</td>
-<td style="text-align: left;">-0.1056266</td>
-<td style="text-align: left;">0.1026676</td>
-<td style="text-align: left;">1.0000000</td>
-<td style="text-align: left;">-0.1527440</td>
-<td style="text-align: left;">-0.1126814</td>
-<td style="text-align: left;">-0.2115319</td>
+<td style="text-align: right;">-0.5099893</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">media_pacientes</td>
-<td style="text-align: left;">0.4738855</td>
-<td style="text-align: left;">-0.0547747</td>
-<td style="text-align: left;">0.3814111</td>
-<td style="text-align: left;">0.1429482</td>
-<td style="text-align: left;">0.0629135</td>
-<td style="text-align: left;">0.9809977</td>
-<td style="text-align: left;">-0.6147573</td>
-<td style="text-align: left;">-0.1527440</td>
-<td style="text-align: left;">1.0000000</td>
-<td style="text-align: left;">0.9078970</td>
-<td style="text-align: left;">0.7780633</td>
+<td style="text-align: right;">0.3680669</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">quant_enfermeiros</td>
-<td style="text-align: left;">0.3403671</td>
-<td style="text-align: left;">-0.0829446</td>
-<td style="text-align: left;">0.3939813</td>
-<td style="text-align: left;">0.1988998</td>
-<td style="text-align: left;">0.0773813</td>
-<td style="text-align: left;">0.9155042</td>
-<td style="text-align: left;">-0.5882397</td>
-<td style="text-align: left;">-0.1126814</td>
-<td style="text-align: left;">0.9078970</td>
-<td style="text-align: left;">1.0000000</td>
-<td style="text-align: left;">0.7835055</td>
+<td style="text-align: right;">0.2570447</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">servicos_disponiveis</td>
-<td style="text-align: left;">0.3555379</td>
-<td style="text-align: left;">-0.0404514</td>
-<td style="text-align: left;">0.4126007</td>
-<td style="text-align: left;">0.1851311</td>
-<td style="text-align: left;">0.1119276</td>
-<td style="text-align: left;">0.7945244</td>
-<td style="text-align: left;">-0.5243903</td>
-<td style="text-align: left;">-0.2115319</td>
-<td style="text-align: left;">0.7780633</td>
-<td style="text-align: left;">0.7835055</td>
-<td style="text-align: left;">1.0000000</td>
+<td style="text-align: right;">0.4151335</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>corr <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">abs</span>(<span class="fu">cor</span>(dados_treino)) <span class="sc">&gt;</span> .<span class="dv">7</span>, <span class="at">arr.ind =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>corr_index <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">unique</span>(<span class="fu">c</span>(corr[corr[, <span class="dv">1</span>] <span class="sc">!=</span> corr[, <span class="dv">2</span>], ])))</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(<span class="fu">cor</span>(dados_treino)[corr_index, corr_index])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 14%">
+<col style="width: 17%">
+<col style="width: 20%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">quant_leitos</th>
+<th style="text-align: right;">media_pacientes</th>
+<th style="text-align: right;">quant_enfermeiros</th>
+<th style="text-align: right;">servicos_disponiveis</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">quant_leitos</td>
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">0.9892425</td>
+<td style="text-align: right;">0.9213593</td>
+<td style="text-align: right;">0.8355541</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">media_pacientes</td>
+<td style="text-align: right;">0.9892425</td>
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">0.9197107</td>
+<td style="text-align: right;">0.8329305</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">quant_enfermeiros</td>
+<td style="text-align: right;">0.9213593</td>
+<td style="text-align: right;">0.9197107</td>
+<td style="text-align: right;">1.0000000</td>
+<td style="text-align: right;">0.7765507</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">servicos_disponiveis</td>
+<td style="text-align: right;">0.8355541</td>
+<td style="text-align: right;">0.8329305</td>
+<td style="text-align: right;">0.7765507</td>
+<td style="text-align: right;">1.0000000</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 </section>
+<section id="modelos" class="level1">
+<h1>Modelos</h1>
+<section id="hipotese-1" class="level2">
+<h2 class="anchored" data-anchor-id="hipotese-1">Hipotese 1</h2>
+<p>Espera-se que o número de enfermeira(o)s esteja relacionado às instalações e serviços disponíveis através de um modelo de segunda ordem. Suspeita-se também que varie segundo a região.</p>
+<p><span class="math display">\[Y = \beta_0 + \beta_1 X_{i1}^{2} + \beta_2 X_{i2} + \epsilon
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dadosteste<span class="ot">&lt;-</span>dados_treino <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>            <span class="fu">mutate</span> (<span class="at">regiao =</span> <span class="fu">as.factor</span>(regiao),</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">servicos_disponiveis2=</span> servicos_disponiveis<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>modelo0 <span class="ot">&lt;-</span> <span class="fu">lm</span>(quant_enfermeiros <span class="sc">~</span> idade <span class="sc">+</span> prob_infeccao <span class="sc">+</span> prop_culturas_rotina <span class="sc">+</span> prop_raio_x_torax_rotina <span class="sc">+</span> quant_leitos <span class="sc">+</span> filiacao_escola_medicina <span class="sc">+</span> regiao <span class="sc">+</span> media_pacientes <span class="sc">+</span> servicos_disponiveis, <span class="at">data=</span>dadosteste)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo0)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = quant_enfermeiros ~ idade + prob_infeccao + prop_culturas_rotina + 
+    prop_raio_x_torax_rotina + quant_leitos + filiacao_escola_medicina + 
+    regiao + media_pacientes + servicos_disponiveis, data = dadosteste)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-171.673  -22.806    4.042   23.201  153.839 
+
+Coefficients:
+                              Estimate Std. Error t value Pr(&gt;|t|)
+(Intercept)                  -13.70090  104.53220  -0.131    0.896
+idade                         -0.03713    1.82353  -0.020    0.984
+prob_infeccao                  0.64639    9.63647   0.067    0.947
+prop_culturas_rotina           1.69562    1.25624   1.350    0.183
+prop_raio_x_torax_rotina      -0.35102    0.45757  -0.767    0.447
+quant_leitos                   0.15184    0.35139   0.432    0.668
+filiacao_escola_medicinaTRUE  23.54851   34.86988   0.675    0.503
+regiao2                        5.16232   24.58108   0.210    0.835
+regiao3                        1.97957   22.29463   0.089    0.930
+regiao4                       38.90212   32.25989   1.206    0.234
+media_pacientes                0.65465    0.44524   1.470    0.148
+servicos_disponiveis           0.29246    1.00162   0.292    0.772
+
+Residual standard error: 58.11 on 48 degrees of freedom
+Multiple R-squared:  0.8658,    Adjusted R-squared:  0.835 
+F-statistic: 28.15 on 11 and 48 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#modelo5&lt;- lm(quant_enfermeiros ~ quant_leitos + servicos_disponiveis + regiao, data=dadosteste)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(modelo5)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#modelo6&lt;- lm(quant_enfermeiros ~ quant_leitos + servicos_disponiveis:regiao, data=dadosteste)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(modelo6)</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#modelo7&lt;- lm(quant_enfermeiros ~ servicos_disponiveis:regiao, data=dadosteste)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(modelo7)</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#modelo7&lt;- lm(quant_enfermeiros ~ servicos_disponiveis + servicos_disponiveis2 + regiao, data=dadosteste)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(modelo7)</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>modelo9<span class="ot">&lt;-</span> <span class="fu">lm</span>(quant_enfermeiros <span class="sc">~</span> servicos_disponiveis2 <span class="sc">+</span> regiao, <span class="at">data=</span>dadosteste)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo9)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = quant_enfermeiros ~ servicos_disponiveis2 + regiao, 
+    data = dadosteste)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-192.67  -36.33   -3.67   18.32  326.91 
+
+Coefficients:
+                        Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)            -9.753931  29.945418  -0.326    0.746    
+servicos_disponiveis2   0.089266   0.009049   9.865 9.06e-14 ***
+regiao2               -10.463106  32.466465  -0.322    0.748    
+regiao3                 5.105474  31.078105   0.164    0.870    
+regiao4                18.287864  38.256104   0.478    0.635    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 87.4 on 55 degrees of freedom
+Multiple R-squared:  0.6521,    Adjusted R-squared:  0.6268 
+F-statistic: 25.77 on 4 and 55 DF,  p-value: 4.648e-12</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>modelo10<span class="ot">&lt;-</span> <span class="fu">lm</span>(quant_enfermeiros <span class="sc">~</span> servicos_disponiveis, <span class="at">data=</span>dadosteste)</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo10)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = quant_enfermeiros ~ servicos_disponiveis, data = dadosteste)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-150.09  -53.70  -12.05   42.12  310.88 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)          -126.6725    32.3177  -3.920 0.000237 ***
+servicos_disponiveis    7.0739     0.7536   9.387 3.07e-13 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 90.91 on 58 degrees of freedom
+Multiple R-squared:  0.603, Adjusted R-squared:  0.5962 
+F-statistic: 88.11 on 1 and 58 DF,  p-value: 3.072e-13</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># *******************</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>modelo8<span class="ot">&lt;-</span> <span class="fu">lm</span>(quant_enfermeiros <span class="sc">~</span> quant_leitos <span class="sc">+</span> servicos_disponiveis2 <span class="sc">+</span> servicos_disponiveis<span class="sc">:</span>regiao, <span class="at">data=</span>dadosteste)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo8)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = quant_enfermeiros ~ quant_leitos + servicos_disponiveis2 + 
+    servicos_disponiveis:regiao, data = dadosteste)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-209.705  -20.351   -0.109   25.710  165.617 
+
+Coefficients:
+                              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                  -79.19922   43.82620  -1.807   0.0764 .  
+quant_leitos                   0.74777    0.08483   8.815 5.72e-12 ***
+servicos_disponiveis2         -0.05424    0.03158  -1.717   0.0917 .  
+servicos_disponiveis:regiao1   3.90601    2.22094   1.759   0.0844 .  
+servicos_disponiveis:regiao2   3.88680    2.31699   1.678   0.0993 .  
+servicos_disponiveis:regiao3   3.84851    2.25997   1.703   0.0944 .  
+servicos_disponiveis:regiao4   4.69327    2.42413   1.936   0.0582 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 56.25 on 53 degrees of freedom
+Multiple R-squared:  0.8611,    Adjusted R-squared:  0.8454 
+F-statistic: 54.77 on 6 and 53 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>modelo0_stepwise <span class="ot">&lt;-</span> <span class="fu">step</span>(modelo0, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Start:  AIC=498.09
+quant_enfermeiros ~ idade + prob_infeccao + prop_culturas_rotina + 
+    prop_raio_x_torax_rotina + quant_leitos + filiacao_escola_medicina + 
+    regiao + media_pacientes + servicos_disponiveis
+
+                           Df Sum of Sq    RSS    AIC
+- regiao                    3    6553.5 168622 494.46
+- idade                     1       1.4 162070 496.09
+- prob_infeccao             1      15.2 162084 496.09
+- servicos_disponiveis      1     287.9 162357 496.19
+- quant_leitos              1     630.4 162699 496.32
+- filiacao_escola_medicina  1    1539.9 163609 496.65
+- prop_raio_x_torax_rotina  1    1987.1 164056 496.82
+&lt;none&gt;                                  162069 498.09
+- prop_culturas_rotina      1    6151.3 168220 498.32
+- media_pacientes           1    7299.3 169368 498.73
+
+Step:  AIC=494.46
+quant_enfermeiros ~ idade + prob_infeccao + prop_culturas_rotina + 
+    prop_raio_x_torax_rotina + quant_leitos + filiacao_escola_medicina + 
+    media_pacientes + servicos_disponiveis
+
+                           Df Sum of Sq    RSS    AIC
+- idade                     1       0.0 168622 492.46
+- servicos_disponiveis      1      16.3 168639 492.47
+- prob_infeccao             1     744.9 169367 492.73
+- prop_raio_x_torax_rotina  1    1128.5 169751 492.86
+- filiacao_escola_medicina  1    2557.6 171180 493.37
+- media_pacientes           1    2804.4 171427 493.45
+- prop_culturas_rotina      1    4068.6 172691 493.89
+&lt;none&gt;                                  168622 494.46
+- quant_leitos              1    6535.1 175158 494.75
++ regiao                    3    6553.5 162069 498.09
+
+Step:  AIC=492.46
+quant_enfermeiros ~ prob_infeccao + prop_culturas_rotina + prop_raio_x_torax_rotina + 
+    quant_leitos + filiacao_escola_medicina + media_pacientes + 
+    servicos_disponiveis
+
+                           Df Sum of Sq    RSS    AIC
+- servicos_disponiveis      1      16.3 168639 490.47
+- prob_infeccao             1     756.3 169379 490.73
+- prop_raio_x_torax_rotina  1    1146.2 169769 490.87
+- filiacao_escola_medicina  1    2719.3 171342 491.42
+- media_pacientes           1    2811.2 171434 491.46
+- prop_culturas_rotina      1    4429.4 173052 492.02
+&lt;none&gt;                                  168622 492.46
+- quant_leitos              1    6545.1 175168 492.75
++ idade                     1       0.0 168622 494.46
++ regiao                    3    6552.1 162070 496.09
+
+Step:  AIC=490.47
+quant_enfermeiros ~ prob_infeccao + prop_culturas_rotina + prop_raio_x_torax_rotina + 
+    quant_leitos + filiacao_escola_medicina + media_pacientes
+
+                           Df Sum of Sq    RSS    AIC
+- prob_infeccao             1     754.6 169393 488.74
+- prop_raio_x_torax_rotina  1    1202.1 169841 488.90
+- filiacao_escola_medicina  1    2717.4 171356 489.43
+- media_pacientes           1    2825.9 171465 489.47
+- prop_culturas_rotina      1    4536.0 173175 490.06
+&lt;none&gt;                                  168639 490.47
+- quant_leitos              1    6761.3 175400 490.83
++ servicos_disponiveis      1      16.3 168622 492.46
++ idade                     1       0.0 168639 492.47
++ regiao                    3    6280.3 162358 494.19
+
+Step:  AIC=488.74
+quant_enfermeiros ~ prop_culturas_rotina + prop_raio_x_torax_rotina + 
+    quant_leitos + filiacao_escola_medicina + media_pacientes
+
+                           Df Sum of Sq    RSS    AIC
+- prop_raio_x_torax_rotina  1     617.9 170011 486.96
+- filiacao_escola_medicina  1    2498.1 171891 487.62
+- media_pacientes           1    3334.8 172728 487.91
+&lt;none&gt;                                  169393 488.74
+- quant_leitos              1    6533.5 175927 489.01
+- prop_culturas_rotina      1    8106.4 177500 489.54
++ prob_infeccao             1     754.6 168639 490.47
++ servicos_disponiveis      1      14.5 169379 490.73
++ idade                     1      12.0 169381 490.73
++ regiao                    3    6945.3 162448 492.23
+
+Step:  AIC=486.96
+quant_enfermeiros ~ prop_culturas_rotina + quant_leitos + filiacao_escola_medicina + 
+    media_pacientes
+
+                           Df Sum of Sq    RSS    AIC
+- filiacao_escola_medicina  1    2223.3 172234 485.74
+- media_pacientes           1    2930.2 172941 485.98
+&lt;none&gt;                                  170011 486.96
+- prop_culturas_rotina      1    7556.9 177568 487.57
+- quant_leitos              1    7597.3 177608 487.58
++ prop_raio_x_torax_rotina  1     617.9 169393 488.74
++ prob_infeccao             1     170.3 169841 488.90
++ servicos_disponiveis      1       9.9 170001 488.95
++ idade                     1       2.4 170009 488.96
++ regiao                    3    5742.1 164269 490.89
+
+Step:  AIC=485.74
+quant_enfermeiros ~ prop_culturas_rotina + quant_leitos + media_pacientes
+
+                           Df Sum of Sq    RSS    AIC
+- media_pacientes           1    2666.1 174900 484.66
+&lt;none&gt;                                  172234 485.74
+- prop_culturas_rotina      1    6380.5 178615 485.92
+- quant_leitos              1    9286.0 181520 486.89
++ filiacao_escola_medicina  1    2223.3 170011 486.96
++ prop_raio_x_torax_rotina  1     343.0 171891 487.62
++ prob_infeccao             1     150.8 172084 487.68
++ idade                     1     147.3 172087 487.68
++ servicos_disponiveis      1       5.5 172229 487.73
++ regiao                    3    6682.5 165552 489.36
+
+Step:  AIC=484.66
+quant_enfermeiros ~ prop_culturas_rotina + quant_leitos
+
+                           Df Sum of Sq     RSS    AIC
+&lt;none&gt;                                   174900 484.66
+- prop_culturas_rotina      1      7567  182468 485.20
++ media_pacientes           1      2666  172234 485.74
++ filiacao_escola_medicina  1      1959  172941 485.98
++ prob_infeccao             1       529  174371 486.48
++ prop_raio_x_torax_rotina  1        86  174815 486.63
++ idade                     1        38  174863 486.64
++ servicos_disponiveis      1         1  174900 486.66
++ regiao                    3      2365  172536 489.84
+- quant_leitos              1   1031195 1206096 598.51</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo0_stepwise)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = quant_enfermeiros ~ prop_culturas_rotina + quant_leitos, 
+    data = dadosteste)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-188.002  -18.148   -0.031   22.760  168.029 
+
+Coefficients:
+                      Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)          -25.66150   16.93321  -1.515    0.135    
+prop_culturas_rotina   1.38935    0.88470   1.570    0.122    
+quant_leitos           0.69129    0.03771  18.332   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 55.39 on 57 degrees of freedom
+Multiple R-squared:  0.8552,    Adjusted R-squared:  0.8501 
+F-statistic: 168.3 on 2 and 57 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>modelo4<span class="ot">&lt;-</span><span class="fu">lm</span>(quant_enfermeiros <span class="sc">~</span> quant_leitos, <span class="at">data=</span>dadosteste)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = quant_enfermeiros ~ quant_leitos, data = dadosteste)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-191.298  -19.753   -1.511   24.083  184.224 
+
+Coefficients:
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  -5.97839   11.52894  -0.519    0.606    
+quant_leitos  0.68849    0.03814  18.052   &lt;2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 56.09 on 58 degrees of freedom
+Multiple R-squared:  0.8489,    Adjusted R-squared:  0.8463 
+F-statistic: 325.9 on 1 and 58 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># *******************</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="hipotese-2" class="level2">
+<h2 class="anchored" data-anchor-id="hipotese-2">Hipotese 2</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>modelo1 <span class="ot">&lt;-</span> <span class="fu">lm</span>(tempo_internacao <span class="sc">~</span> ., <span class="at">data=</span>dadosteste)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = tempo_internacao ~ ., data = dadosteste)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.2062 -0.6648  0.0108  0.5839  5.6471 
+
+Coefficients:
+                               Estimate Std. Error t value Pr(&gt;|t|)   
+(Intercept)                   4.4326778  2.7415124   1.617  0.11274   
+idade                         0.0866537  0.0430538   2.013  0.05002 . 
+prob_infeccao                 0.6200451  0.2309676   2.685  0.01006 * 
+prop_culturas_rotina          0.0022024  0.0297863   0.074  0.94138   
+prop_raio_x_torax_rotina      0.0066464  0.0107167   0.620  0.53819   
+quant_leitos                 -0.0138994  0.0085161  -1.632  0.10948   
+filiacao_escola_medicinaTRUE  0.4076288  0.8381466   0.486  0.62903   
+regiao2                      -1.2961835  0.5753737  -2.253  0.02909 * 
+regiao3                      -1.7456736  0.5189585  -3.364  0.00156 **
+regiao4                      -1.8827854  0.7646505  -2.462  0.01761 * 
+media_pacientes               0.0208084  0.0106542   1.953  0.05691 . 
+quant_enfermeiros            -0.0051548  0.0034044  -1.514  0.13683   
+servicos_disponiveis         -0.1047040  0.0642045  -1.631  0.10976   
+servicos_disponiveis2         0.0016301  0.0008569   1.902  0.06340 . 
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.352 on 46 degrees of freedom
+Multiple R-squared:  0.647, Adjusted R-squared:  0.5472 
+F-statistic: 6.485 on 13 and 46 DF,  p-value: 9.067e-07</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>modelo_stepwise <span class="ot">&lt;-</span> <span class="fu">step</span>(modelo1, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Start:  AIC=48.28
+tempo_internacao ~ idade + prob_infeccao + prop_culturas_rotina + 
+    prop_raio_x_torax_rotina + quant_leitos + filiacao_escola_medicina + 
+    regiao + media_pacientes + quant_enfermeiros + servicos_disponiveis + 
+    servicos_disponiveis2
+
+                           Df Sum of Sq     RSS    AIC
+- prop_culturas_rotina      1    0.0100  84.133 46.283
+- filiacao_escola_medicina  1    0.4326  84.556 46.584
+- prop_raio_x_torax_rotina  1    0.7034  84.827 46.776
+&lt;none&gt;                                   84.123 48.276
+- quant_enfermeiros         1    4.1927  88.316 49.195
+- servicos_disponiveis      1    4.8636  88.987 49.649
+- quant_leitos              1    4.8715  88.995 49.654
+- servicos_disponiveis2     1    6.6181  90.741 50.820
+- media_pacientes           1    6.9758  91.099 51.056
+- idade                     1    7.4081  91.531 51.340
+- prob_infeccao             1   13.1796  97.303 55.009
+- regiao                    3   22.2180 106.341 56.338
+
+Step:  AIC=46.28
+tempo_internacao ~ idade + prob_infeccao + prop_raio_x_torax_rotina + 
+    quant_leitos + filiacao_escola_medicina + regiao + media_pacientes + 
+    quant_enfermeiros + servicos_disponiveis + servicos_disponiveis2
+
+                           Df Sum of Sq     RSS    AIC
+- filiacao_escola_medicina  1    0.4227  84.556 44.584
+- prop_raio_x_torax_rotina  1    0.7472  84.880 44.814
+&lt;none&gt;                                   84.133 46.283
+- quant_enfermeiros         1    4.2687  88.402 47.253
+- servicos_disponiveis      1    4.9056  89.039 47.684
+- quant_leitos              1    4.9131  89.046 47.689
++ prop_culturas_rotina      1    0.0100  84.123 48.276
+- servicos_disponiveis2     1    6.6205  90.754 48.828
+- media_pacientes           1    7.1750  91.308 49.194
+- idade                     1    7.8422  91.975 49.631
+- regiao                    3   22.8870 107.020 54.720
+- prob_infeccao             1   17.6580 101.791 55.715
+
+Step:  AIC=44.58
+tempo_internacao ~ idade + prob_infeccao + prop_raio_x_torax_rotina + 
+    quant_leitos + regiao + media_pacientes + quant_enfermeiros + 
+    servicos_disponiveis + servicos_disponiveis2
+
+                           Df Sum of Sq     RSS    AIC
+- prop_raio_x_torax_rotina  1    0.9494  85.505 43.254
+&lt;none&gt;                                   84.556 44.584
+- quant_enfermeiros         1    4.0309  88.587 45.378
+- quant_leitos              1    5.1602  89.716 46.138
++ filiacao_escola_medicina  1    0.4227  84.133 46.283
+- servicos_disponiveis      1    5.7398  90.296 46.525
++ prop_culturas_rotina      1    0.0001  84.556 46.584
+- idade                     1    7.4199  91.976 47.631
+- media_pacientes           1    7.6614  92.217 47.788
+- servicos_disponiveis2     1    7.8502  92.406 47.911
+- regiao                    3   22.4662 107.022 52.721
+- prob_infeccao             1   17.2691 101.825 53.735
+
+Step:  AIC=43.25
+tempo_internacao ~ idade + prob_infeccao + quant_leitos + regiao + 
+    media_pacientes + quant_enfermeiros + servicos_disponiveis + 
+    servicos_disponiveis2
+
+                           Df Sum of Sq     RSS    AIC
+&lt;none&gt;                                   85.505 43.254
+- quant_enfermeiros         1    4.3328  89.838 44.220
++ prop_raio_x_torax_rotina  1    0.9494  84.556 44.584
++ filiacao_escola_medicina  1    0.6249  84.880 44.814
+- servicos_disponiveis      1    5.5593  91.065 45.033
++ prop_culturas_rotina      1    0.0197  85.485 45.240
+- quant_leitos              1    6.1084  91.614 45.394
+- idade                     1    7.6910  93.196 46.422
+- servicos_disponiveis2     1    7.9285  93.434 46.574
+- media_pacientes           1    8.6348  94.140 47.026
+- regiao                    3   22.5934 108.099 51.322
+- prob_infeccao             1   25.1640 110.669 56.732</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo_stepwise)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = tempo_internacao ~ idade + prob_infeccao + quant_leitos + 
+    regiao + media_pacientes + quant_enfermeiros + servicos_disponiveis + 
+    servicos_disponiveis2, data = dadosteste)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.1999 -0.5184  0.0121  0.5738  5.6649 
+
+Coefficients:
+                        Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)            5.0021651  2.5200054   1.985 0.052759 .  
+idade                  0.0826695  0.0393779   2.099 0.040957 *  
+prob_infeccao          0.6777497  0.1784750   3.797 0.000404 ***
+quant_leitos          -0.0151314  0.0080875  -1.871 0.067328 .  
+regiao2               -1.2541596  0.5349966  -2.344 0.023164 *  
+regiao3               -1.7437889  0.5017307  -3.476 0.001077 ** 
+regiao4               -1.7793005  0.7008420  -2.539 0.014350 *  
+media_pacientes        0.0222743  0.0100133   2.224 0.030755 *  
+quant_enfermeiros     -0.0051026  0.0032382  -1.576 0.121519    
+servicos_disponiveis  -0.1093551  0.0612669  -1.785 0.080469 .  
+servicos_disponiveis2  0.0017349  0.0008139   2.132 0.038083 *  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.321 on 49 degrees of freedom
+Multiple R-squared:  0.6412,    Adjusted R-squared:  0.5679 
+F-statistic: 8.756 on 10 and 49 DF,  p-value: 5.072e-08</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>modelo2<span class="ot">&lt;-</span> <span class="fu">lm</span>(tempo_internacao <span class="sc">~</span> idade <span class="sc">+</span> prob_infeccao <span class="sc">+</span> regiao <span class="sc">+</span> media_pacientes <span class="sc">+</span> quant_enfermeiros, <span class="at">data=</span>dadosteste)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = tempo_internacao ~ idade + prob_infeccao + regiao + 
+    media_pacientes + quant_enfermeiros, data = dadosteste)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.1597 -0.6600  0.0051  0.4563  6.0639 
+
+Coefficients:
+                   Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)        2.456380   2.291252   1.072 0.288639    
+idade              0.097777   0.040174   2.434 0.018411 *  
+prob_infeccao      0.629509   0.157439   3.998 0.000202 ***
+regiao2           -1.264507   0.518595  -2.438 0.018208 *  
+regiao3           -1.798305   0.511894  -3.513 0.000926 ***
+regiao4           -2.053658   0.617859  -3.324 0.001632 ** 
+media_pacientes    0.008126   0.003211   2.530 0.014456 *  
+quant_enfermeiros -0.006553   0.003285  -1.995 0.051298 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.363 on 52 degrees of freedom
+Multiple R-squared:  0.5943,    Adjusted R-squared:  0.5397 
+F-statistic: 10.88 on 7 and 52 DF,  p-value: 2.301e-08</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>modelo3<span class="ot">&lt;-</span> <span class="fu">lm</span>(tempo_internacao <span class="sc">~</span> idade <span class="sc">+</span> prob_infeccao <span class="sc">+</span> regiao <span class="sc">+</span> media_pacientes, <span class="at">data=</span>dadosteste)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = tempo_internacao ~ idade + prob_infeccao + regiao + 
+    media_pacientes, data = dadosteste)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-2.1729 -0.6893 -0.0232  0.4633  6.4630 
+
+Coefficients:
+                 Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)      2.253686   2.352468   0.958 0.342408    
+idade            0.104779   0.041130   2.547 0.013787 *  
+prob_infeccao    0.605845   0.161344   3.755 0.000432 ***
+regiao2         -1.313398   0.532380  -2.467 0.016889 *  
+regiao3         -1.821144   0.525956  -3.463 0.001066 ** 
+regiao4         -2.327885   0.619078  -3.760 0.000425 ***
+media_pacientes  0.002304   0.001378   1.673 0.100272    
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 1.401 on 53 degrees of freedom
+Multiple R-squared:  0.5633,    Adjusted R-squared:  0.5138 
+F-statistic: 11.39 on 6 and 53 DF,  p-value: 3.845e-08</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co">#plot(modelo2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>anova <span class="ot">&lt;-</span> <span class="fu">aov</span>(quant_enfermeiros <span class="sc">~</span> servicos_disponiveis <span class="sc">+</span> servicos_disponiveis<span class="sc">**</span><span class="dv">2</span> <span class="sc">+</span> regiao_nc <span class="sc">+</span> regiao_ne <span class="sc">+</span> regiao_s <span class="sc">+</span> regiao_w, <span class="at">data =</span> dados_treino)</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
 <section id="análise-exploratória" class="level1">
 <h1>Análise exploratória</h1>
-<div class="cell">
-<div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-4-2.png" class="img-fluid" width="672"></p>
-</div>
-<div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-4-3.png" class="img-fluid" width="672"></p>
-</div>
-<div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-4-4.png" class="img-fluid" width="672"></p>
-</div>
-</div>
 </section>
 
 </main>
