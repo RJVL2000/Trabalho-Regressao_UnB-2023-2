@@ -115,6 +115,15 @@ summary(modelo0_stepwise)
 modelo4<-lm(quant_enfermeiros ~ quant_leitos, data=dadosteste)
 summary(modelo4)
 
+modelo0 <- lm(quant_enfermeiros ~ ., data = dadosteste %>% mutate(tempo_internacao = NULL))
+VIF(modelo0)
+modelo1 <- lm(quant_enfermeiros ~ ., data = dadosteste %>% mutate(tempo_internacao = NULL, quant_leitos = NULL))
+VIF(modelo1)
+modelo <- step(modelo1, direction = "both")
+summary(modelo)
+shapiro.test(modelo$residuals)
+var(modelo$residuals)
+var(dados)
 # *******************
 
 ```
