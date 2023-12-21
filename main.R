@@ -52,4 +52,25 @@ VIF(modelo0)
 modelo0 <- step(modelo0, direction = "both")
 summary(modelo0)
 shapiro.test(modelo0$residuals)
+plot(modelo0$residuals)
 bptest(modelo0)
+
+
+modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino)
+VIF(modelo1)
+
+modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino %>% mutate(quant_leitos = NULL))
+VIF(modelo1)
+
+modelo1 <- step(modelo1, direction = "both")
+summary(modelo1)
+shapiro.test(modelo1$residuals)
+plot(modelo1$residuals)
+bptest(modelo1)
+
+X_valid <- dados_valid %>% mutate(tempo_internacao = NULL)
+Y_valid <- dados_valid$tempo_internacao
+previsoes <- exp(predict(modelo1, newdata = X_valid))
+res_valid <- Y_valid - previsoes
+shapiro.test(res_valid)
+plot(res_valid)
