@@ -43,16 +43,9 @@ dados_treino %>% ggplot(aes(group = regiao, y = quant_enfermeiros)) +
     geom_boxplot()
 
 # Regressão para explicar a quantidade de enfermeiros
-modelo0 <- lm(log(quant_enfermeiros) ~ ., data = dados_treino %>% mutate(tempo_internacao = NULL))
-VIF(modelo0)
-
-modelo0 <- lm(log(quant_enfermeiros) ~ ., data = dados_treino %>% mutate(
-    tempo_internacao = NULL,
-    quant_leitos = NULL,
-    media_pacientes = NULL,
-    prob_infeccao = NULL
+modelo0 <- lm(log(quant_enfermeiros) ~ servicos_disponiveis**2 + regiao, data = dados_treino %>% mutate(
+    tempo_internacao = NULL
 ))
-VIF(modelo0)
 
 modelo0 <- step(modelo0, direction = "both")
 summary(modelo0)
@@ -72,19 +65,15 @@ f_statistic0 <- summary(modelo0)$fstatistic[1]
 aic0 <- AIC(modelo0)
 bic0 <- BIC(modelo0)
 
-# Método dos mínimos quadrados em duas etapas
-prev_quant_enfermeiros <- exp(predict(modelo0))
-dados_treino2 <- dados_treino %>% mutate(quant_enfermeiros = prev_quant_enfermeiros)
-
 
 # Regressão para explicar o tempo de internação
-modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino2)
+modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino)
 VIF(modelo1)
 
-modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino2 %>% mutate(
+## Remoção de variáveis correlacionadas
+modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino %>% mutate(
     quant_leitos = NULL,
     media_pacientes = NULL,
-    prob_infeccao = NULL,
     servicos_disponiveis = NULL
 ))
 VIF(modelo1)
