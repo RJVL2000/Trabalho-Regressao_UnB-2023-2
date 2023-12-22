@@ -75,8 +75,8 @@ plot(residuos2)
 shapiro.test(residuos2) #atendido
 bptest(modelo2) #atendido
 
-# Modelo 3 - servicos, log
-modelo3 <- lm(log(quant_enfermeiros) ~ servicos_disponiveis2, dados_treino)
+# Modelo 3 - servicos:regiao, log
+modelo3 <- lm(log(quant_enfermeiros) ~ servicos_disponiveis2:regiao, dados_treino)
 summary(modelo3)
 
 residuos3 <- modelo3$residuals
@@ -97,6 +97,10 @@ medidas<-data.frame(rse3,rmse3,rsquared3,adjusted_rsquared3,f_statistic3,aic3,bi
 names(medidas) <- c('RSE','RMSE','R2','R2ad','F','AIC','BIC')
 kable(medidas)
 
+# Amostra de Validação
+
+v_modelo3 <- lm(log(quant_enfermeiros) ~ servicos_disponiveis2:regiao, dados_valid)
+summary(v_modelo3)
 # --------------------------------------
 
 # Hipotese 2 : Y = tempo_internacao
@@ -113,6 +117,7 @@ modelo22 <- lm(log(tempo_internacao) ~ ., data = dados_treino %>% mutate(
 VIF(modelo22)
 
 modelo32 <- step(modelo22, direction = "both")
+#modelo32 <- lm(log(tempo_internacao) ~ idade + prop_raio_x_torax_rotina + regiao + servicos_disponiveis2,dados_treino)
 summary(modelo32)
 
 # Teste dos pressupostos para o segundo modelo
@@ -130,6 +135,10 @@ f_statistic32 <- summary(modelo32)$fstatistic[1]
 aic32 <- AIC(modelo32)
 bic32 <- BIC(modelo32)
 
+medidas32<-data.frame(rse32,rmse32,rsquared32,adjusted_rsquared32,f_statistic32,aic32,bic32)
+names(medidas32) <- c('RSE','RMSE','R2','R2ad','F','AIC','BIC')
+#xtable(medidas32)
+
 
 # Gerando previsões para os dados de validação
 prev_tempo_internacao <- exp(predict(modelo32, newdata = dados_valid))
@@ -137,3 +146,295 @@ res_valid <- dados_valid$tempo_internacao - prev_tempo_internacao
 rmse_valid <- sqrt(mean(res_valid))
 shapiro.test(res_valid)
 plot(res_valid)
+
+# Amostra de Validação
+v_modelo32 <- lm(log(tempo_internacao) ~ idade + prop_raio_x_torax_rotina + regiao + servicos_disponiveis2,dados_valid)
+summary(v_modelo32)
+
+# --------------------------------------
+# Gráficos
+
+
+#dados treino - amostra 
+# fazer a exploratoria dos dados
+# ------------------- TEMPO DE INTERNACAO ---------------- #
+(box_1 <- ggplot(dados, aes(x=factor(""), y=tempo_internacao)) +
+    geom_boxplot(fill=c("#6e00ff"), width = 0.5) +
+    guides(fill=FALSE) +
+    stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")+
+    labs(x="", y="Duração da Internação")+
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line.y = element_line(colour = "black")))
+#ggsave(("img/box_internacao.pdf",width = 238, height = 163, units = "mm")
+ 
+(hist1 <- ggplot(dados, aes(x=tempo_internacao)) + geom_histogram(colour = "black", fill = "#6e00ff") +
+    labs(x="Duração da Internação", y="Frequência absoluta") +
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line = element_line(colour = "black")))
+ 
+#ggsave(("img/hist_internacao.pdf",width = 238, height = 163, units = "mm")
+ 
+install.packages("e1071")
+require(e1071)
+ 
+# ---------- IDADE --------------- #
+(box_2 <- ggplot(dados, aes(x=factor(""), y=idade)) +
+    geom_boxplot(fill=c("#6e00ff"), width = 0.5) +
+    guides(fill=FALSE) +
+    stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")+
+    labs(x="", y="Idade")+
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line.y = element_line(colour = "black")))
+#ggsave(("img/box_idade.pdf",width = 238, height = 163, units = "mm")
+ 
+(hist2 <- ggplot(dados, aes(x=idade)) + geom_histogram(colour = "black", fill = "#6e00ff") +
+    labs(x="Idade", y="Frequência absoluta") +
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line = element_line(colour = "black")))
+ 
+#ggsave(("img/hist_idade.pdf",width = 238, height = 163, units = "mm")
+ 
+# ----------- PROB DE INFECCAO --------------- #
+(box_3 <- ggplot(dados, aes(x=factor(""), y=prob_infeccao)) +
+    geom_boxplot(fill=c("#6e00ff"), width = 0.5) +
+    guides(fill=FALSE) +
+    stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")+
+    labs(x="", y="Risco de Infecção")+
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line.y = element_line(colour = "black")))
+#ggsave(("img/box_infeccao.pdf",width = 238, height = 163, units = "mm")
+ 
+(hist3 <- ggplot(dados, aes(x=prob_infeccao)) + geom_histogram(colour = "black", fill = "#6e00ff") +
+    labs(x="Risco de Infecção", y="Frequência absoluta") +
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line = element_line(colour = "black")))
+ 
+#ggsave(("img/hist_infeccao.pdf",width = 238, height = 163, units = "mm")
+ 
+ 
+# --------------------- PROP CULTURAS DE ROTINA --------------- #
+(box_4 <- ggplot(dados, aes(x=factor(""), y=prop_culturas_rotina)) +
+    geom_boxplot(fill=c("#6e00ff"), width = 0.5) +
+    guides(fill=FALSE) +
+    stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")+
+    labs(x="", y="Proporção de Culturas de Rotina")+
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line.y = element_line(colour = "black")))
+#ggsave(("img/box_prop_culturas_rotina.pdf",width = 238, height = 163, units = "mm")
+ 
+(hist1 <- ggplot(dados, aes(x=prop_culturas_rotina)) + geom_histogram(colour = "black", fill = "#6e00ff") +
+    labs(x="Proporção de Culturas de Rotina", y="Frequência absoluta") +
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line = element_line(colour = "black")))
+ 
+#ggsave(("img/hist_prop_culturas_rotina.pdf",width = 238, height = 163, units = "mm")
+# ---------------------- PROP_RAIO X _ TORAX_ROTINA -------------- #
+(box_5 <- ggplot(dados, aes(x=factor(""), y=prop_raio_x_torax_rotina)) +
+    geom_boxplot(fill=c("#6e00ff"), width = 0.5) +
+    guides(fill=FALSE) +
+    stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")+
+    labs(x="", y="Proporção de Raio X do Tórax de Rotina")+
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line.y = element_line(colour = "black")))
+#ggsave(("img/box_prop_raiox_torax_rotina.pdf",width = 238, height = 163, units = "mm")
+ 
+(hist5 <- ggplot(dados, aes(x=prop_raio_x_torax_rotina)) + geom_histogram(colour = "black", fill = "#6e00ff") +
+    labs(x="Proporção de Raio X do Tórax de Rotina", y="Frequência absoluta") +
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line = element_line(colour = "black")))
+ 
+#ggsave(("img/hist_prop_raio_x_torax_rotina.pdf",width = 238, height = 163, units = "mm")
+ 
+ 
+# ---------------------- QUANT DE LEITOS -------------- #
+(box_5 <- ggplot(dados, aes(x=factor(""), y=quant_leitos)) +
+    geom_boxplot(fill=c("#6e00ff"), width = 0.5) +
+    guides(fill=FALSE) +
+    stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")+
+    labs(x="", y="Quantidade de Leitos ")+
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line.y = element_line(colour = "black")))
+#ggsave(("img/box_quant_leitos.pdf",width = 238, height = 163, units = "mm")
+ 
+(hist5 <- ggplot(dados, aes(x=quant_leitos)) + geom_histogram(colour = "black", fill = "#6e00ff") +
+    labs(x="Quantidade de Leitos", y="Frequência absoluta") +
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line = element_line(colour = "black")))
+ 
+#ggsave(("img/hist_quant_leitos.pdf",width = 238, height = 163, units = "mm")
+ 
+ 
+# --------------------- FILIACAO ESCOLA DE MEDICINA  --------------- #
+# TESTE 
+(box_8 <- ggplot(dados, aes(x=factor(""), y=regiao)) +
+    geom_boxplot(fill=c("#6e00ff"), width = 0.5) +
+    guides(fill=FALSE) +
+    stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")+
+    labs(x="", y="Região")+
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line.y = element_line(colour = "black")))
+#ggsave(("img/box_regiao.pdf",width = 238, height = 163, units = "mm")
+ 
+# ---------------------- QUANT DE LEITOS -------------- #
+(box_8 <- ggplot(dados, aes(x=factor(""), y=regiao)) +
+    geom_boxplot(fill=c("#6e00ff"), width = 0.5) +
+    guides(fill=FALSE) +
+    stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")+
+    labs(x="", y="Região")+
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line.y = element_line(colour = "black")))
+#ggsave(("img/box_regiao.pdf",width = 238, height = 163, units = "mm")
+ 
+# ------------ REGIAO ------------ #
+(box_8 <- ggplot(dados, aes(x=factor(""), y=regiao)) +
+    geom_boxplot(fill=c("#6e00ff"), width = 0.5) +
+    guides(fill=FALSE) +
+    stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")+
+    labs(x="", y="Região")+
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line.y = element_line(colour = "black")))
+#ggsave(("img/box_regiao.pdf",width = 238, height = 163, units = "mm")
+(hist8 <- ggplot(dados, aes(x=regiao)) + geom_histogram(colour = "black", fill = "#6e00ff") +
+    labs(x="Região", y="Frequência absoluta") +
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line = element_line(colour = "black")))
+ 
+#ggsave(("img/hist_regiao.pdf",width = 238, height = 163, units = "mm")
+# ------------------- MEDIA PACIENTES ---------------- #
+(box_9 <- ggplot(dados, aes(x=factor(""), y=media_pacientes)) +
+    geom_boxplot(fill=c("#6e00ff"), width = 0.5) +
+    guides(fill=FALSE) +
+    stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")+
+    labs(x="", y="Média de Pacientes")+
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line.y = element_line(colour = "black")))
+#ggsave(("img/box_media_pacientes.pdf",width = 238, height = 163, units = "mm")
+ 
+(hist9 <- ggplot(dados, aes(x=media_pacientes)) + geom_histogram(colour = "black", fill = "#6e00ff") +
+    labs(x="Média de Pacientes", y="Frequência absoluta") +
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line = element_line(colour = "black")))
+ 
+#ggsave(("img/hist_media_pacientes.pdf",width = 238, height = 163, units = "mm")
+ 
+# ------------------- MEDIA PACIENTES ---------------- #
+(box_10 <- ggplot(dados, aes(x=factor(""), y=quant_enfermeiros)) +
+    geom_boxplot(fill=c("#6e00ff"), width = 0.5) +
+    guides(fill=FALSE) +
+    stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")+
+    labs(x="", y="Quantidade de Enfermeiros")+
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line.y = element_line(colour = "black")))
+#ggsave(("img/box_quant_enfermeiros.pdf",width = 238, height = 163, units = "mm")
+ 
+(hist10 <- ggplot(dados, aes(x=quant_enfermeiros)) + geom_histogram(colour = "black", fill = "#6e00ff") +
+    labs(x="Quantidade de Enfermeiros", y="Frequência absoluta") +
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line = element_line(colour = "black")))
+ 
+#ggsave(("img/hist_quant_enfermeiros.pdf",width = 238, height = 163, units = "mm")
+ 
+# ------------------- SERVICOS DISPONIVEIS ---------------- #
+(box_11 <- ggplot(dados, aes(x=factor(""), y=servicos_disponiveis)) +
+    geom_boxplot(fill=c("#6e00ff"), width = 0.5) +
+    guides(fill=FALSE) +
+    stat_summary(fun.y="mean", geom="point", shape=23, size=3, fill="white")+
+    labs(x="", y="Serviços Disponíveis")+
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line.y = element_line(colour = "black")))
+#ggsave(("img/box_servicos_disponiveis.pdf",width = 238, height = 163, units = "mm")
+ 
+(hist11 <- ggplot(dados, aes(x=servicos_disponiveis)) + geom_histogram(colour = "black", fill = "#6e00ff") +
+    labs(x="Serviços Disponíveis", y="Frequência absoluta") +
+    theme_bw() +
+    theme(axis.title.y=element_text(colour="black", size=12),
+          axis.title.x = element_text(colour="black", size=12),
+          axis.text = element_text(colour = "black", size=9.5),
+          panel.border = element_blank(),
+          axis.line = element_line(colour = "black")))
+ 
+#ggsave(("img/hist_servicos_disponiveis.pdf",width = 238, height = 163, units = "mm")
