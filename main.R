@@ -74,7 +74,8 @@ VIF(modelo1)
 modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino %>% mutate(
     quant_leitos = NULL,
     media_pacientes = NULL,
-    servicos_disponiveis = NULL
+    servicos_disponiveis = NULL,
+    prob_infeccao = NULL
 ))
 VIF(modelo1)
 
@@ -82,8 +83,9 @@ modelo1 <- step(modelo1, direction = "both")
 summary(modelo1)
 
 # Teste dos pressupostos para o segundo modelo
-shapiro.test(modelo1$residuals)
-plot(modelo1$residuals)
+residuos1 <- modelo1$residuals
+shapiro.test(residuos1)
+plot(residuos1)
 bptest(modelo1)
 
 # Medidas de ajuste do segundo modelo
