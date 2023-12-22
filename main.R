@@ -46,7 +46,12 @@ dados_treino %>% ggplot(aes(group = regiao, y = quant_enfermeiros)) +
 modelo0 <- lm(log(quant_enfermeiros) ~ ., data = dados_treino %>% mutate(tempo_internacao = NULL))
 VIF(modelo0)
 
-modelo0 <- lm(log(quant_enfermeiros) ~ ., data = dados_treino %>% mutate(tempo_internacao = NULL, quant_leitos = NULL))
+modelo0 <- lm(log(quant_enfermeiros) ~ ., data = dados_treino %>% mutate(
+    tempo_internacao = NULL,
+    quant_leitos = NULL,
+    media_pacientes = NULL,
+    prob_infeccao = NULL
+))
 VIF(modelo0)
 
 modelo0 <- step(modelo0, direction = "both")
@@ -76,7 +81,12 @@ dados_treino2 <- dados_treino %>% mutate(quant_enfermeiros = prev_quant_enfermei
 modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino2)
 VIF(modelo1)
 
-modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino2 %>% mutate(quant_leitos = NULL))
+modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino2 %>% mutate(
+    quant_leitos = NULL,
+    media_pacientes = NULL,
+    prob_infeccao = NULL,
+    servicos_disponiveis = NULL
+))
 VIF(modelo1)
 
 modelo1 <- step(modelo1, direction = "both")
@@ -99,6 +109,6 @@ bic <- BIC(modelo1)
 
 # Gerando previsões para os dados de validação
 prev_tempo_internacao <- exp(predict(modelo1, newdata = dados_valid))
-res_valid <- Y_valid - prev_tempo_internacao
+res_valid <- dados_valid$tempo_internacao - prev_tempo_internacao
 shapiro.test(res_valid)
 plot(res_valid)
