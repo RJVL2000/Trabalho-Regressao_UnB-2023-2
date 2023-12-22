@@ -43,11 +43,9 @@ dados_treino %>% ggplot(aes(group = regiao, y = quant_enfermeiros)) +
     geom_boxplot()
 
 # Regressão para explicar a quantidade de enfermeiros
-modelo0 <- lm(log(quant_enfermeiros) ~ ., data = dados_treino %>% mutate(tempo_internacao = NULL))
-VIF(modelo0)
-
-modelo0 <- lm(log(quant_enfermeiros) ~ ., data = dados_treino %>% mutate(tempo_internacao = NULL, quant_leitos = NULL))
-VIF(modelo0)
+modelo0 <- lm(log(quant_enfermeiros) ~ servicos_disponiveis**2 + regiao, data = dados_treino %>% mutate(
+    tempo_internacao = NULL
+))
 
 modelo0 <- step(modelo0, direction = "both")
 summary(modelo0)
@@ -59,46 +57,50 @@ plot(residuos0)
 bptest(modelo0)
 
 # Medidas de ajuste do primeiro modelo
-rse <- sigma(modelo0)
-rmse <- sqrt(mean(modelo0$residuals^2))
-rsquared <- summary(modelo0)$r.squared
-adjusted_rsquared <- summary(modelo0)$adj.r.squared
-f_statistic <- summary(modelo0)$fstatistic[1]
-aic <- AIC(modelo0)
-bic <- BIC(modelo0)
-
-# Método dos mínimos quadrados em duas etapas
-prev_quant_enfermeiros <- exp(predict(modelo0))
-dados_treino2 <- dados_treino %>% mutate(quant_enfermeiros = prev_quant_enfermeiros)
+rse0 <- sigma(modelo0)
+rmse0 <- sqrt(mean(modelo0$residuals^2))
+rsquared0 <- summary(modelo0)$r.squared
+adjusted_rsquared0 <- summary(modelo0)$adj.r.squared
+f_statistic0 <- summary(modelo0)$fstatistic[1]
+aic0 <- AIC(modelo0)
+bic0 <- BIC(modelo0)
 
 
 # Regressão para explicar o tempo de internação
-modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino2)
+modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino)
 VIF(modelo1)
 
-modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino2 %>% mutate(quant_leitos = NULL))
+## Remoção de variáveis correlacionadas
+modelo1 <- lm(log(tempo_internacao) ~ ., data = dados_treino %>% mutate(
+    quant_leitos = NULL,
+    media_pacientes = NULL,
+    servicos_disponiveis = NULL,
+    prob_infeccao = NULL
+))
 VIF(modelo1)
 
 modelo1 <- step(modelo1, direction = "both")
 summary(modelo1)
 
 # Teste dos pressupostos para o segundo modelo
-shapiro.test(modelo1$residuals)
-plot(modelo1$residuals)
+residuos1 <- modelo1$residuals
+shapiro.test(residuos1)
+plot(residuos1)
 bptest(modelo1)
 
 # Medidas de ajuste do segundo modelo
-rse <- sigma(modelo1)
-rmse <- sqrt(mean(modelo1$residuals^2))
-rsquared <- summary(modelo1)$r.squared
-adjusted_rsquared <- summary(modelo1)$adj.r.squared
-f_statistic <- summary(modelo1)$fstatistic[1]
-aic <- AIC(modelo1)
-bic <- BIC(modelo1)
+rse1 <- sigma(modelo1)
+rmse1 <- sqrt(mean(modelo1$residuals^2))
+rsquared1 <- summary(modelo1)$r.squared
+adjusted_rsquared1 <- summary(modelo1)$adj.r.squared
+f_statistic1 <- summary(modelo1)$fstatistic[1]
+aic1 <- AIC(modelo1)
+bic1 <- BIC(modelo1)
 
 
 # Gerando previsões para os dados de validação
 prev_tempo_internacao <- exp(predict(modelo1, newdata = dados_valid))
-res_valid <- Y_valid - prev_tempo_internacao
+res_valid <- dados_valid$tempo_internacao - prev_tempo_internacao
+rmse_valid <- sqrt(mean(res_valid))
 shapiro.test(res_valid)
 plot(res_valid)
