@@ -64,13 +64,13 @@ plot(residuos0)
 bptest(modelo0)
 
 # Medidas de ajuste do primeiro modelo
-rse <- sigma(modelo0)
-rmse <- sqrt(mean(modelo0$residuals^2))
-rsquared <- summary(modelo0)$r.squared
-adjusted_rsquared <- summary(modelo0)$adj.r.squared
-f_statistic <- summary(modelo0)$fstatistic[1]
-aic <- AIC(modelo0)
-bic <- BIC(modelo0)
+rse0 <- sigma(modelo0)
+rmse0 <- sqrt(mean(modelo0$residuals^2))
+rsquared0 <- summary(modelo0)$r.squared
+adjusted_rsquared0 <- summary(modelo0)$adj.r.squared
+f_statistic0 <- summary(modelo0)$fstatistic[1]
+aic0 <- AIC(modelo0)
+bic0 <- BIC(modelo0)
 
 # Método dos mínimos quadrados em duas etapas
 prev_quant_enfermeiros <- exp(predict(modelo0))
@@ -98,17 +98,18 @@ plot(modelo1$residuals)
 bptest(modelo1)
 
 # Medidas de ajuste do segundo modelo
-rse <- sigma(modelo1)
-rmse <- sqrt(mean(modelo1$residuals^2))
-rsquared <- summary(modelo1)$r.squared
-adjusted_rsquared <- summary(modelo1)$adj.r.squared
-f_statistic <- summary(modelo1)$fstatistic[1]
-aic <- AIC(modelo1)
-bic <- BIC(modelo1)
+rse1 <- sigma(modelo1)
+rmse1 <- sqrt(mean(modelo1$residuals^2))
+rsquared1 <- summary(modelo1)$r.squared
+adjusted_rsquared1 <- summary(modelo1)$adj.r.squared
+f_statistic1 <- summary(modelo1)$fstatistic[1]
+aic1 <- AIC(modelo1)
+bic1 <- BIC(modelo1)
 
 
 # Gerando previsões para os dados de validação
 prev_tempo_internacao <- exp(predict(modelo1, newdata = dados_valid))
 res_valid <- dados_valid$tempo_internacao - prev_tempo_internacao
+rmse_valid <- sqrt(mean(res_valid))
 shapiro.test(res_valid)
 plot(res_valid)
