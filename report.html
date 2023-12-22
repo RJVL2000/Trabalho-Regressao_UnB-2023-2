@@ -114,30 +114,29 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Importação de dados e renomeação de variáveis</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="co">#"C:/Users/User/Documents/GitHub/Trabalho-Regressao_UnB-2023-2/</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="st">"Dados/Dados_trabalho_20232.xlsx"</span>)[<span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dados) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tempo_internacao"</span>, <span class="st">"idade"</span>, <span class="st">"prob_infeccao"</span>, <span class="st">"prop_culturas_rotina"</span>,</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"prop_raio_x_torax_rotina"</span>, <span class="st">"quant_leitos"</span>, <span class="st">"filiacao_escola_medicina"</span>, <span class="st">"regiao"</span>,</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"media_pacientes"</span>, <span class="st">"quant_enfermeiros"</span>, <span class="st">"servicos_disponiveis"</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Tratamento de variáveis categóricas</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>dados_trat <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">filiacao_escola_medicina =</span> <span class="fu">as.factor</span>(filiacao_escola_medicina),</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">regiao =</span> <span class="fu">as.factor</span>(regiao),</span>
-<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">servicos_disponiveis2 =</span> servicos_disponiveis<span class="sc">^</span><span class="dv">2</span></span>
-<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>        )</span>
-<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Separando o banco em dados de treino e de validação</span></span>
-<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
-<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>indexes <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(dados_trat)</span>
-<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>index_treino <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">sample</span>(indexes, <span class="dv">60</span>))</span>
-<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>index_valid <span class="ot">&lt;-</span> indexes[<span class="sc">!</span>(indexes <span class="sc">%in%</span> index_treino)]</span>
-<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>dados_treino <span class="ot">&lt;-</span> dados_trat[index_treino, ]</span>
-<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>dados_valid <span class="ot">&lt;-</span> dados_trat[index_valid, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"C:/Users/User/Documents/GitHub/Trabalho-Regressao_UnB-2023-2/Dados/Dados_trabalho_20232.xlsx"</span>)[<span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dados) <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"tempo_internacao"</span>, <span class="st">"idade"</span>, <span class="st">"prob_infeccao"</span>, <span class="st">"prop_culturas_rotina"</span>,</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"prop_raio_x_torax_rotina"</span>, <span class="st">"quant_leitos"</span>, <span class="st">"filiacao_escola_medicina"</span>, <span class="st">"regiao"</span>,</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"media_pacientes"</span>, <span class="st">"quant_enfermeiros"</span>, <span class="st">"servicos_disponiveis"</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Tratamento de variáveis categóricas</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>dados_trat <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>        <span class="at">filiacao_escola_medicina =</span> <span class="fu">as.factor</span>(filiacao_escola_medicina),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">regiao =</span> <span class="fu">as.factor</span>(regiao),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">servicos_disponiveis2 =</span> servicos_disponiveis<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Separando o banco em dados de treino e de validação</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">2023</span>)</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>indexes <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(dados_trat)</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>index_treino <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">sample</span>(indexes, <span class="dv">60</span>))</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>index_valid <span class="ot">&lt;-</span> indexes[<span class="sc">!</span>(indexes <span class="sc">%in%</span> index_treino)]</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>dados_treino <span class="ot">&lt;-</span> dados_trat[index_treino, ]</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>dados_valid <span class="ot">&lt;-</span> dados_trat[index_valid, ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="modelos" class="level1">
 <h1>Modelos</h1>
@@ -176,11 +175,14 @@ Multiple R-squared:  0.6521,    Adjusted R-squared:  0.6268
 F-statistic: 25.77 on 4 and 55 DF,  p-value: 4.648e-12</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>residuos1 <span class="ot">&lt;-</span> modelo1<span class="sc">$</span>residuals</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"img/res_mod1.pdf"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos1)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>png 
+  2 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(residuos1) <span class="co">#nao atendido</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(residuos1) <span class="co">#nao atendido</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -188,7 +190,7 @@ F-statistic: 25.77 on 4 and 55 DF,  p-value: 4.648e-12</code></pre>
 data:  residuos1
 W = 0.90348, p-value = 0.0001765</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(modelo1) <span class="co">#nao atendido</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(modelo1) <span class="co">#nao atendido</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     studentized Breusch-Pagan test
@@ -201,9 +203,9 @@ BP = 11.53, df = 4, p-value = 0.02121</code></pre>
 <li>Modelo 2: <span class="math inline">\(ln(X_{10}) = \beta_0 + \beta_{8} \cdot X_8 + \beta_{11} \cdot X_{11}^2\)</span></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo 2 - todas, log</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(quant_enfermeiros) <span class="sc">~</span> servicos_disponiveis2 <span class="sc">+</span> regiao, dados_treino)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo 2 - todas, log</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>modelo2 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(quant_enfermeiros) <span class="sc">~</span> servicos_disponiveis2 <span class="sc">+</span> regiao, dados_treino)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -228,12 +230,15 @@ Residual standard error: 0.5143 on 55 degrees of freedom
 Multiple R-squared:  0.7031,    Adjusted R-squared:  0.6816 
 F-statistic: 32.57 on 4 and 55 DF,  p-value: 6.359e-14</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>residuos2 <span class="ot">&lt;-</span> modelo2<span class="sc">$</span>residuals</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>residuos2 <span class="ot">&lt;-</span> modelo2<span class="sc">$</span>residuals</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"img/res_mod2.pdf"</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos2)</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>png 
+  2 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(residuos2) <span class="co">#atendido</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(residuos2) <span class="co">#atendido</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -241,7 +246,7 @@ F-statistic: 32.57 on 4 and 55 DF,  p-value: 6.359e-14</code></pre>
 data:  residuos2
 W = 0.98321, p-value = 0.5779</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(modelo2) <span class="co">#atendido</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(modelo2) <span class="co">#atendido</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     studentized Breusch-Pagan test
@@ -254,108 +259,138 @@ BP = 4.816, df = 4, p-value = 0.3067</code></pre>
 <li>Modelo 3: <span class="math inline">\(ln(X_{10}) = \beta_0 + \beta_{11} \cdot X_{11}^2\)</span></li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo 3 - servicos, log</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>modelo3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(quant_enfermeiros) <span class="sc">~</span> servicos_disponiveis2, dados_treino)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Modelo 3 - servicos:regiao, log</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>modelo3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(quant_enfermeiros) <span class="sc">~</span> servicos_disponiveis2<span class="sc">:</span>regiao, dados_treino)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
-lm(formula = log(quant_enfermeiros) ~ servicos_disponiveis2, 
+lm(formula = log(quant_enfermeiros) ~ servicos_disponiveis2:regiao, 
     data = dados_treino)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--0.98917 -0.40374  0.03954  0.27527  1.30645 
+    Min      1Q  Median      3Q     Max 
+-0.9980 -0.3770 -0.0061  0.3300  1.1810 
 
 Coefficients:
-                       Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)           3.610e+00  1.141e-01   31.64  &lt; 2e-16 ***
-servicos_disponiveis2 5.728e-04  5.052e-05   11.34 2.41e-16 ***
+                               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                   3.577e+00  1.189e-01  30.078  &lt; 2e-16 ***
+servicos_disponiveis2:regiao1 6.400e-04  8.522e-05   7.510 5.51e-10 ***
+servicos_disponiveis2:regiao2 5.556e-04  5.739e-05   9.682 1.75e-13 ***
+servicos_disponiveis2:regiao3 6.158e-04  7.857e-05   7.838 1.61e-10 ***
+servicos_disponiveis2:regiao4 5.421e-04  9.312e-05   5.821 3.12e-07 ***
 ---
 Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 
-Residual standard error: 0.5125 on 58 degrees of freedom
-Multiple R-squared:  0.6891,    Adjusted R-squared:  0.6837 
-F-statistic: 128.5 on 1 and 58 DF,  p-value: 2.412e-16</code></pre>
+Residual standard error: 0.5192 on 55 degrees of freedom
+Multiple R-squared:  0.6975,    Adjusted R-squared:  0.6755 
+F-statistic:  31.7 on 4 and 55 DF,  p-value: 1.061e-13</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>residuos3 <span class="ot">&lt;-</span> modelo3<span class="sc">$</span>residuals</span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(modelo3<span class="sc">$</span>coefficients)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">(Intercept)</td>
+<td style="text-align: right;">3.5765183</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">servicos_disponiveis2:regiao1</td>
+<td style="text-align: right;">0.0006400</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">servicos_disponiveis2:regiao2</td>
+<td style="text-align: right;">0.0005556</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">servicos_disponiveis2:regiao3</td>
+<td style="text-align: right;">0.0006158</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">servicos_disponiveis2:regiao4</td>
+<td style="text-align: right;">0.0005421</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(residuos3) <span class="co">#atendido</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>residuos3 <span class="ot">&lt;-</span> modelo3<span class="sc">$</span>residuals</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(residuos3) <span class="co">#atendido</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
 
 data:  residuos3
-W = 0.98595, p-value = 0.7196</code></pre>
+W = 0.98464, p-value = 0.6512</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(modelo3) <span class="co">#atendido</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(modelo3) <span class="co">#atendido</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     studentized Breusch-Pagan test
 
 data:  modelo3
-BP = 0.18632, df = 1, p-value = 0.666</code></pre>
+BP = 6.7266, df = 4, p-value = 0.1511</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Medidas de ajuste do primeiro modelo</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>rse3 <span class="ot">&lt;-</span> <span class="fu">sigma</span>(modelo3)</span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>rmse3 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(modelo3<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>rsquared3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo3)<span class="sc">$</span>r.squared</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>adjusted_rsquared3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo3)<span class="sc">$</span>adj.r.squared</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>f_statistic3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo3)<span class="sc">$</span>fstatistic[<span class="dv">1</span>]</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>aic3 <span class="ot">&lt;-</span> <span class="fu">AIC</span>(modelo3)</span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>bic3 <span class="ot">&lt;-</span> <span class="fu">BIC</span>(modelo3)</span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>medidas<span class="ot">&lt;-</span><span class="fu">data.frame</span>(rse3,rmse3,rsquared3,adjusted_rsquared3,f_statistic3,aic3,bic3)</span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(medidas) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'RSE'</span>,<span class="st">'RMSE'</span>,<span class="st">'R2'</span>,<span class="st">'R2ad'</span>,<span class="st">'F'</span>,<span class="st">'AIC'</span>,<span class="st">'BIC'</span>)</span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(medidas)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 8%">
-<col style="width: 13%">
-<col style="width: 13%">
-<col style="width: 13%">
-<col style="width: 13%">
-<col style="width: 12%">
-<col style="width: 12%">
-<col style="width: 12%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: right;">RSE</th>
-<th style="text-align: right;">RMSE</th>
-<th style="text-align: right;">R2</th>
-<th style="text-align: right;">R2ad</th>
-<th style="text-align: right;">F</th>
-<th style="text-align: right;">AIC</th>
-<th style="text-align: right;">BIC</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">value</td>
-<td style="text-align: right;">0.5125289</td>
-<td style="text-align: right;">0.5039144</td>
-<td style="text-align: right;">0.6890889</td>
-<td style="text-align: right;">0.6837284</td>
-<td style="text-align: right;">128.5485</td>
-<td style="text-align: right;">94.03076</td>
-<td style="text-align: right;">100.3138</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"img/res_mod3.pdf"</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos3)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>png 
+  2 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Medidas de ajuste do primeiro modelo</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>rse3 <span class="ot">&lt;-</span> <span class="fu">sigma</span>(modelo3)</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>rmse3 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(modelo3<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>rsquared3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo3)<span class="sc">$</span>r.squared</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>adjusted_rsquared3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo3)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>f_statistic3 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo3)<span class="sc">$</span>fstatistic[<span class="dv">1</span>]</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>aic3 <span class="ot">&lt;-</span> <span class="fu">AIC</span>(modelo3)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>bic3 <span class="ot">&lt;-</span> <span class="fu">BIC</span>(modelo3)</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>medidas3<span class="ot">&lt;-</span><span class="fu">data.frame</span>(rse3,rmse3,rsquared3,adjusted_rsquared3,f_statistic3,aic3,bic3)</span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(medidas3) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'RSE'</span>,<span class="st">'RMSE'</span>,<span class="st">'R2'</span>,<span class="st">'R2ad'</span>,<span class="st">'F'</span>,<span class="st">'AIC'</span>,<span class="st">'BIC'</span>)</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="co">#xtable(medidas3)</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Amostra de Validação</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>v_modelo3 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(quant_enfermeiros) <span class="sc">~</span> servicos_disponiveis2<span class="sc">:</span>regiao, dados_valid)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(v_modelo3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log(quant_enfermeiros) ~ servicos_disponiveis2:regiao, 
+    data = dados_valid)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-0.8475 -0.2846 -0.0004  0.3338  0.7917 
+
+Coefficients:
+                               Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)                   4.067e+00  1.228e-01  33.117  &lt; 2e-16 ***
+servicos_disponiveis2:regiao1 3.821e-04  5.013e-05   7.622 8.24e-10 ***
+servicos_disponiveis2:regiao2 4.044e-04  6.169e-05   6.555 3.55e-08 ***
+servicos_disponiveis2:regiao3 4.576e-04  5.949e-05   7.691 6.47e-10 ***
+servicos_disponiveis2:regiao4 3.705e-04  7.278e-05   5.091 5.91e-06 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.435 on 48 degrees of freedom
+Multiple R-squared:  0.6354,    Adjusted R-squared:  0.6051 
+F-statistic: 20.92 on 4 and 48 DF,  p-value: 4.935e-10</code></pre>
 </div>
 </div>
 </section>
 <section id="hipotese-2" class="level2">
 <h2 class="anchored" data-anchor-id="hipotese-2">Hipotese 2</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>modelo12 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(tempo_internacao) <span class="sc">~</span> ., <span class="at">data =</span> dados_treino)</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="fu">VIF</span>(modelo12)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>modelo12 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(tempo_internacao) <span class="sc">~</span> ., <span class="at">data =</span> dados_treino)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">VIF</span>(modelo12)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                              GVIF Df GVIF^(1/(2*Df))
 idade                     1.198399  1        1.094714
@@ -370,14 +405,38 @@ quant_enfermeiros         7.653347  1        2.766468
 servicos_disponiveis     32.803524  1        5.727436
 servicos_disponiveis2    41.318446  1        6.427943</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Remoção de variáveis correlacionadas</span></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>modelo22 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(tempo_internacao) <span class="sc">~</span> ., <span class="at">data =</span> dados_treino <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">quant_leitos =</span> <span class="cn">NULL</span>,</span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_pacientes =</span> <span class="cn">NULL</span>,</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">servicos_disponiveis =</span> <span class="cn">NULL</span>,</span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">prob_infeccao =</span> <span class="cn">NULL</span></span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>))</span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="fu">VIF</span>(modelo22)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>residuos12 <span class="ot">&lt;-</span> modelo12<span class="sc">$</span>residuals</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(residuos12)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  residuos12
+W = 0.96662, p-value = 0.09952</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(modelo12)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    studentized Breusch-Pagan test
+
+data:  modelo12
+BP = 13.149, df = 13, p-value = 0.4363</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"img/res_mod12.pdf"</span>)</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos12)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>png 
+  2 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="do">## Remoção de variáveis correlacionadas</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>modelo22 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(tempo_internacao) <span class="sc">~</span> ., <span class="at">data =</span> dados_treino <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(</span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">quant_leitos =</span> <span class="cn">NULL</span>,</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_pacientes =</span> <span class="cn">NULL</span>,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">servicos_disponiveis =</span> <span class="cn">NULL</span>,</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">prob_infeccao =</span> <span class="cn">NULL</span></span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>))</span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="fu">VIF</span>(modelo22)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                             GVIF Df GVIF^(1/(2*Df))
 idade                    1.148757  1        1.071801
@@ -388,7 +447,31 @@ regiao                   1.392405  3        1.056722
 quant_enfermeiros        3.280705  1        1.811272
 servicos_disponiveis2    3.344081  1        1.828683</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>modelo32 <span class="ot">&lt;-</span> <span class="fu">step</span>(modelo22, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>residuos22 <span class="ot">&lt;-</span> modelo22<span class="sc">$</span>residuals</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(residuos22)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Shapiro-Wilk normality test
+
+data:  residuos22
+W = 0.96702, p-value = 0.1042</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(modelo22)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    studentized Breusch-Pagan test
+
+data:  modelo22
+BP = 8.824, df = 9, p-value = 0.4537</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"img/res_mod22.pdf"</span>)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos22)</span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>png 
+  2 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>modelo32 <span class="ot">&lt;-</span> <span class="fu">step</span>(modelo22, <span class="at">direction =</span> <span class="st">"both"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Start:  AIC=-233.12
 log(tempo_internacao) ~ idade + prop_culturas_rotina + prop_raio_x_torax_rotina + 
@@ -446,7 +529,8 @@ log(tempo_internacao) ~ idade + prop_raio_x_torax_rotina + regiao +
 - servicos_disponiveis2     1   0.21436 1.13841 -225.88
 - regiao                    3   0.37065 1.29469 -222.16</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo32)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#modelo32 &lt;- lm(log(tempo_internacao) ~ idade + prop_raio_x_torax_rotina + regiao + servicos_disponiveis2,dados_treino)</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(modelo32)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Call:
@@ -474,9 +558,9 @@ Residual standard error: 0.132 on 53 degrees of freedom
 Multiple R-squared:  0.5356,    Adjusted R-squared:  0.483 
 F-statistic: 10.19 on 6 and 53 DF,  p-value: 1.781e-07</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Teste dos pressupostos para o segundo modelo</span></span>
-<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>residuos32 <span class="ot">&lt;-</span> modelo32<span class="sc">$</span>residuals</span>
-<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(residuos32)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Teste dos pressupostos para o segundo modelo</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>residuos32 <span class="ot">&lt;-</span> modelo32<span class="sc">$</span>residuals</span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(residuos32)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -484,11 +568,7 @@ F-statistic: 10.19 on 6 and 53 DF,  p-value: 1.781e-07</code></pre>
 data:  residuos32
 W = 0.97134, p-value = 0.1696</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos32)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(modelo32)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bptest</span>(modelo32)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     studentized Breusch-Pagan test
@@ -496,21 +576,32 @@ W = 0.97134, p-value = 0.1696</code></pre>
 data:  modelo32
 BP = 6.9102, df = 6, p-value = 0.3292</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Medidas de ajuste do segundo modelo</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a>rse32 <span class="ot">&lt;-</span> <span class="fu">sigma</span>(modelo32)</span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>rmse32 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(modelo32<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>))</span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>rsquared32 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo32)<span class="sc">$</span>r.squared</span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>adjusted_rsquared32 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo32)<span class="sc">$</span>adj.r.squared</span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>f_statistic32 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo32)<span class="sc">$</span>fstatistic[<span class="dv">1</span>]</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>aic32 <span class="ot">&lt;-</span> <span class="fu">AIC</span>(modelo32)</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a>bic32 <span class="ot">&lt;-</span> <span class="fu">BIC</span>(modelo32)</span>
-<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerando previsões para os dados de validação</span></span>
-<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>prev_tempo_internacao <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(modelo32, <span class="at">newdata =</span> dados_valid))</span>
-<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>res_valid <span class="ot">&lt;-</span> dados_valid<span class="sc">$</span>tempo_internacao <span class="sc">-</span> prev_tempo_internacao</span>
-<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a>rmse_valid <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(res_valid))</span>
-<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(res_valid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pdf</span>(<span class="at">file=</span><span class="st">"img/res_mod32.pdf"</span>)</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(residuos32)</span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.off</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>png 
+  2 </code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Medidas de ajuste do segundo modelo</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>rse32 <span class="ot">&lt;-</span> <span class="fu">sigma</span>(modelo32)</span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>rmse32 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(modelo32<span class="sc">$</span>residuals<span class="sc">^</span><span class="dv">2</span>))</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>rsquared32 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo32)<span class="sc">$</span>r.squared</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>adjusted_rsquared32 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo32)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>f_statistic32 <span class="ot">&lt;-</span> <span class="fu">summary</span>(modelo32)<span class="sc">$</span>fstatistic[<span class="dv">1</span>]</span>
+<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>aic32 <span class="ot">&lt;-</span> <span class="fu">AIC</span>(modelo32)</span>
+<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>bic32 <span class="ot">&lt;-</span> <span class="fu">BIC</span>(modelo32)</span>
+<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>medidas32<span class="ot">&lt;-</span><span class="fu">data.frame</span>(rse32,rmse32,rsquared32,adjusted_rsquared32,f_statistic32,aic32,bic32)</span>
+<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(medidas32) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">'RSE'</span>,<span class="st">'RMSE'</span>,<span class="st">'R2'</span>,<span class="st">'R2ad'</span>,<span class="st">'F'</span>,<span class="st">'AIC'</span>,<span class="st">'BIC'</span>)</span>
+<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a><span class="co">#xtable(medidas32)</span></span>
+<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb55-15"><a href="#cb55-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Gerando previsões para os dados de validação</span></span>
+<span id="cb55-16"><a href="#cb55-16" aria-hidden="true" tabindex="-1"></a>prev_tempo_internacao <span class="ot">&lt;-</span> <span class="fu">exp</span>(<span class="fu">predict</span>(modelo32, <span class="at">newdata =</span> dados_valid))</span>
+<span id="cb55-17"><a href="#cb55-17" aria-hidden="true" tabindex="-1"></a>res_valid <span class="ot">&lt;-</span> dados_valid<span class="sc">$</span>tempo_internacao <span class="sc">-</span> prev_tempo_internacao</span>
+<span id="cb55-18"><a href="#cb55-18" aria-hidden="true" tabindex="-1"></a>rmse_valid <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">mean</span>(res_valid))</span>
+<span id="cb55-19"><a href="#cb55-19" aria-hidden="true" tabindex="-1"></a><span class="fu">shapiro.test</span>(res_valid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Shapiro-Wilk normality test
@@ -518,47 +609,327 @@ BP = 6.9102, df = 6, p-value = 0.3292</code></pre>
 data:  res_valid
 W = 0.96515, p-value = 0.1238</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(res_valid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(res_valid)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-6-2.png" class="img-fluid" width="672"></p>
+<p><img src="report_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+</div>
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Amostra de Validação</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>v_modelo32 <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="fu">log</span>(tempo_internacao) <span class="sc">~</span> idade <span class="sc">+</span> prop_raio_x_torax_rotina <span class="sc">+</span> regiao <span class="sc">+</span> servicos_disponiveis2,dados_valid)</span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(v_modelo32)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+Call:
+lm(formula = log(tempo_internacao) ~ idade + prop_raio_x_torax_rotina + 
+    regiao + servicos_disponiveis2, data = dados_valid)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.25676 -0.09276 -0.00607  0.07997  0.47794 
+
+Coefficients:
+                           Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)               1.862e+00  3.076e-01   6.054  2.4e-07 ***
+idade                     4.170e-03  4.656e-03   0.896  0.37507    
+prop_raio_x_torax_rotina  2.262e-03  1.307e-03   1.731  0.09023 .  
+regiao2                  -5.200e-02  5.384e-02  -0.966  0.33918    
+regiao3                  -2.204e-02  5.471e-02  -0.403  0.68898    
+regiao4                  -2.546e-01  7.207e-02  -3.532  0.00095 ***
+servicos_disponiveis2     2.648e-05  1.410e-05   1.878  0.06666 .  
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Residual standard error: 0.1355 on 46 degrees of freedom
+Multiple R-squared:  0.4319,    Adjusted R-squared:  0.3578 
+F-statistic: 5.828 on 6 and 46 DF,  p-value: 0.0001404</code></pre>
 </div>
 </div>
 </section>
 <section id="gráficos" class="level2">
 <h2 class="anchored" data-anchor-id="gráficos">Gráficos</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>dados_treino <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> filiacao_escola_medicina, <span class="at">y =</span> tempo_internacao)) <span class="sc">+</span></span>
-<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">'blue'</span>)<span class="sc">+</span></span>
-<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">'Filiação Escola de Medicina'</span>)<span class="sc">+</span></span>
-<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">'Tempo de Internação'</span>)<span class="sc">+</span></span>
-<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>dados_treino <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> regiao, <span class="at">y =</span> tempo_internacao)) <span class="sc">+</span></span>
-<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">'blue'</span>)<span class="sc">+</span></span>
-<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">'Região'</span>)<span class="sc">+</span></span>
-<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">'Tempo de Internação'</span>)<span class="sc">+</span></span>
-<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-7-2.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>dados_treino <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> filiacao_escola_medicina, <span class="at">y =</span> quant_enfermeiros)) <span class="sc">+</span></span>
-<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">'blue'</span>)<span class="sc">+</span></span>
-<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">'Filiação Escola de Medicina'</span>)<span class="sc">+</span></span>
-<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">'Quantidade de Enfermeiros'</span>)<span class="sc">+</span></span>
-<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-7-3.png" class="img-fluid" width="672"></p>
-</div>
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>dados_treino <span class="sc">%&gt;%</span> <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> regiao, <span class="at">y =</span> quant_enfermeiros)) <span class="sc">+</span></span>
-<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="st">'blue'</span>)<span class="sc">+</span></span>
-<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">'Região'</span>)<span class="sc">+</span></span>
-<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">'Quantidade de Enfermeiros'</span>)<span class="sc">+</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_classic</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="report_files/figure-html/unnamed-chunk-7-4.png" class="img-fluid" width="672"></p>
-</div>
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="co">#dados treino - amostra </span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co"># fazer a exploratoria dos dados</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------- TEMPO DE INTERNACAO ---------------- #</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>(box_1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="st">""</span>), <span class="at">y=</span>tempo_internacao)) <span class="sc">+</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"#6e00ff"</span>), <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">"mean"</span>, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">23</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">fill=</span><span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Duração da Internação"</span>)<span class="sc">+</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/box_internacao.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>(hist1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>tempo_internacao)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"#6e00ff"</span>) <span class="sc">+</span></span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Duração da Internação"</span>, <span class="at">y=</span><span class="st">"Frequência absoluta"</span>) <span class="sc">+</span></span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/hist_internacao.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">"e1071"</span>)</span>
+<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a><span class="fu">require</span>(e1071)</span>
+<span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-31"><a href="#cb60-31" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------- IDADE --------------- #</span></span>
+<span id="cb60-32"><a href="#cb60-32" aria-hidden="true" tabindex="-1"></a>(box_2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="st">""</span>), <span class="at">y=</span>idade)) <span class="sc">+</span></span>
+<span id="cb60-33"><a href="#cb60-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"#6e00ff"</span>), <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb60-34"><a href="#cb60-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb60-35"><a href="#cb60-35" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">"mean"</span>, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">23</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">fill=</span><span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb60-36"><a href="#cb60-36" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Idade"</span>)<span class="sc">+</span></span>
+<span id="cb60-37"><a href="#cb60-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-38"><a href="#cb60-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-39"><a href="#cb60-39" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-40"><a href="#cb60-40" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-41"><a href="#cb60-41" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-42"><a href="#cb60-42" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-43"><a href="#cb60-43" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/box_idade.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-44"><a href="#cb60-44" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-45"><a href="#cb60-45" aria-hidden="true" tabindex="-1"></a>(hist2 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>idade)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"#6e00ff"</span>) <span class="sc">+</span></span>
+<span id="cb60-46"><a href="#cb60-46" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Idade"</span>, <span class="at">y=</span><span class="st">"Frequência absoluta"</span>) <span class="sc">+</span></span>
+<span id="cb60-47"><a href="#cb60-47" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-48"><a href="#cb60-48" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-49"><a href="#cb60-49" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-50"><a href="#cb60-50" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-51"><a href="#cb60-51" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-52"><a href="#cb60-52" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-53"><a href="#cb60-53" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-54"><a href="#cb60-54" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/hist_idade.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-55"><a href="#cb60-55" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-56"><a href="#cb60-56" aria-hidden="true" tabindex="-1"></a><span class="co"># ----------- PROB DE INFECCAO --------------- #</span></span>
+<span id="cb60-57"><a href="#cb60-57" aria-hidden="true" tabindex="-1"></a>(box_3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="st">""</span>), <span class="at">y=</span>prob_infeccao)) <span class="sc">+</span></span>
+<span id="cb60-58"><a href="#cb60-58" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"#6e00ff"</span>), <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb60-59"><a href="#cb60-59" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb60-60"><a href="#cb60-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">"mean"</span>, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">23</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">fill=</span><span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb60-61"><a href="#cb60-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Risco de Infecção"</span>)<span class="sc">+</span></span>
+<span id="cb60-62"><a href="#cb60-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-63"><a href="#cb60-63" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-64"><a href="#cb60-64" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-65"><a href="#cb60-65" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-66"><a href="#cb60-66" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-67"><a href="#cb60-67" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-68"><a href="#cb60-68" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/box_infeccao.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-69"><a href="#cb60-69" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-70"><a href="#cb60-70" aria-hidden="true" tabindex="-1"></a>(hist3 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>prob_infeccao)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"#6e00ff"</span>) <span class="sc">+</span></span>
+<span id="cb60-71"><a href="#cb60-71" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Risco de Infecção"</span>, <span class="at">y=</span><span class="st">"Frequência absoluta"</span>) <span class="sc">+</span></span>
+<span id="cb60-72"><a href="#cb60-72" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-73"><a href="#cb60-73" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-74"><a href="#cb60-74" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-75"><a href="#cb60-75" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-76"><a href="#cb60-76" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-77"><a href="#cb60-77" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-78"><a href="#cb60-78" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-79"><a href="#cb60-79" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/hist_infeccao.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-80"><a href="#cb60-80" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-81"><a href="#cb60-81" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-82"><a href="#cb60-82" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------- PROP CULTURAS DE ROTINA --------------- #</span></span>
+<span id="cb60-83"><a href="#cb60-83" aria-hidden="true" tabindex="-1"></a>(box_4 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="st">""</span>), <span class="at">y=</span>prop_culturas_rotina)) <span class="sc">+</span></span>
+<span id="cb60-84"><a href="#cb60-84" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"#6e00ff"</span>), <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb60-85"><a href="#cb60-85" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb60-86"><a href="#cb60-86" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">"mean"</span>, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">23</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">fill=</span><span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb60-87"><a href="#cb60-87" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Proporção de Culturas de Rotina"</span>)<span class="sc">+</span></span>
+<span id="cb60-88"><a href="#cb60-88" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-89"><a href="#cb60-89" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-90"><a href="#cb60-90" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-91"><a href="#cb60-91" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-92"><a href="#cb60-92" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-93"><a href="#cb60-93" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-94"><a href="#cb60-94" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/box_prop_culturas_rotina.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-95"><a href="#cb60-95" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-96"><a href="#cb60-96" aria-hidden="true" tabindex="-1"></a>(hist1 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>prop_culturas_rotina)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"#6e00ff"</span>) <span class="sc">+</span></span>
+<span id="cb60-97"><a href="#cb60-97" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Proporção de Culturas de Rotina"</span>, <span class="at">y=</span><span class="st">"Frequência absoluta"</span>) <span class="sc">+</span></span>
+<span id="cb60-98"><a href="#cb60-98" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-99"><a href="#cb60-99" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-100"><a href="#cb60-100" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-101"><a href="#cb60-101" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-102"><a href="#cb60-102" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-103"><a href="#cb60-103" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-104"><a href="#cb60-104" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-105"><a href="#cb60-105" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/hist_prop_culturas_rotina.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-106"><a href="#cb60-106" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------- PROP_RAIO X _ TORAX_ROTINA -------------- #</span></span>
+<span id="cb60-107"><a href="#cb60-107" aria-hidden="true" tabindex="-1"></a>(box_5 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="st">""</span>), <span class="at">y=</span>prop_raio_x_torax_rotina)) <span class="sc">+</span></span>
+<span id="cb60-108"><a href="#cb60-108" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"#6e00ff"</span>), <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb60-109"><a href="#cb60-109" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb60-110"><a href="#cb60-110" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">"mean"</span>, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">23</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">fill=</span><span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb60-111"><a href="#cb60-111" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Proporção de Raio X do Tórax de Rotina"</span>)<span class="sc">+</span></span>
+<span id="cb60-112"><a href="#cb60-112" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-113"><a href="#cb60-113" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-114"><a href="#cb60-114" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-115"><a href="#cb60-115" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-116"><a href="#cb60-116" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-117"><a href="#cb60-117" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-118"><a href="#cb60-118" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/box_prop_raiox_torax_rotina.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-119"><a href="#cb60-119" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-120"><a href="#cb60-120" aria-hidden="true" tabindex="-1"></a>(hist5 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>prop_raio_x_torax_rotina)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"#6e00ff"</span>) <span class="sc">+</span></span>
+<span id="cb60-121"><a href="#cb60-121" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Proporção de Raio X do Tórax de Rotina"</span>, <span class="at">y=</span><span class="st">"Frequência absoluta"</span>) <span class="sc">+</span></span>
+<span id="cb60-122"><a href="#cb60-122" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-123"><a href="#cb60-123" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-124"><a href="#cb60-124" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-125"><a href="#cb60-125" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-126"><a href="#cb60-126" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-127"><a href="#cb60-127" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-128"><a href="#cb60-128" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-129"><a href="#cb60-129" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/hist_prop_raio_x_torax_rotina.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-130"><a href="#cb60-130" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-131"><a href="#cb60-131" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-132"><a href="#cb60-132" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------- QUANT DE LEITOS -------------- #</span></span>
+<span id="cb60-133"><a href="#cb60-133" aria-hidden="true" tabindex="-1"></a>(box_5 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="st">""</span>), <span class="at">y=</span>quant_leitos)) <span class="sc">+</span></span>
+<span id="cb60-134"><a href="#cb60-134" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"#6e00ff"</span>), <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb60-135"><a href="#cb60-135" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb60-136"><a href="#cb60-136" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">"mean"</span>, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">23</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">fill=</span><span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb60-137"><a href="#cb60-137" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Quantidade de Leitos "</span>)<span class="sc">+</span></span>
+<span id="cb60-138"><a href="#cb60-138" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-139"><a href="#cb60-139" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-140"><a href="#cb60-140" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-141"><a href="#cb60-141" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-142"><a href="#cb60-142" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-143"><a href="#cb60-143" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-144"><a href="#cb60-144" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/box_quant_leitos.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-145"><a href="#cb60-145" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-146"><a href="#cb60-146" aria-hidden="true" tabindex="-1"></a>(hist5 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>quant_leitos)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"#6e00ff"</span>) <span class="sc">+</span></span>
+<span id="cb60-147"><a href="#cb60-147" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Quantidade de Leitos"</span>, <span class="at">y=</span><span class="st">"Frequência absoluta"</span>) <span class="sc">+</span></span>
+<span id="cb60-148"><a href="#cb60-148" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-149"><a href="#cb60-149" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-150"><a href="#cb60-150" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-151"><a href="#cb60-151" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-152"><a href="#cb60-152" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-153"><a href="#cb60-153" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-154"><a href="#cb60-154" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-155"><a href="#cb60-155" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/hist_quant_leitos.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-156"><a href="#cb60-156" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-157"><a href="#cb60-157" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-158"><a href="#cb60-158" aria-hidden="true" tabindex="-1"></a><span class="co"># --------------------- FILIACAO ESCOLA DE MEDICINA  --------------- #</span></span>
+<span id="cb60-159"><a href="#cb60-159" aria-hidden="true" tabindex="-1"></a><span class="co"># TESTE </span></span>
+<span id="cb60-160"><a href="#cb60-160" aria-hidden="true" tabindex="-1"></a>(box_8 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="st">""</span>), <span class="at">y=</span>regiao)) <span class="sc">+</span></span>
+<span id="cb60-161"><a href="#cb60-161" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"#6e00ff"</span>), <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb60-162"><a href="#cb60-162" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb60-163"><a href="#cb60-163" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">"mean"</span>, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">23</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">fill=</span><span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb60-164"><a href="#cb60-164" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Região"</span>)<span class="sc">+</span></span>
+<span id="cb60-165"><a href="#cb60-165" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-166"><a href="#cb60-166" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-167"><a href="#cb60-167" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-168"><a href="#cb60-168" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-169"><a href="#cb60-169" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-170"><a href="#cb60-170" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-171"><a href="#cb60-171" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/box_regiao.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-172"><a href="#cb60-172" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-173"><a href="#cb60-173" aria-hidden="true" tabindex="-1"></a><span class="co"># ---------------------- QUANT DE LEITOS -------------- #</span></span>
+<span id="cb60-174"><a href="#cb60-174" aria-hidden="true" tabindex="-1"></a>(box_8 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="st">""</span>), <span class="at">y=</span>regiao)) <span class="sc">+</span></span>
+<span id="cb60-175"><a href="#cb60-175" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"#6e00ff"</span>), <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb60-176"><a href="#cb60-176" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb60-177"><a href="#cb60-177" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">"mean"</span>, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">23</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">fill=</span><span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb60-178"><a href="#cb60-178" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Região"</span>)<span class="sc">+</span></span>
+<span id="cb60-179"><a href="#cb60-179" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-180"><a href="#cb60-180" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-181"><a href="#cb60-181" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-182"><a href="#cb60-182" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-183"><a href="#cb60-183" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-184"><a href="#cb60-184" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-185"><a href="#cb60-185" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/box_regiao.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-186"><a href="#cb60-186" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-187"><a href="#cb60-187" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------ REGIAO ------------ #</span></span>
+<span id="cb60-188"><a href="#cb60-188" aria-hidden="true" tabindex="-1"></a>(box_8 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="st">""</span>), <span class="at">y=</span>regiao)) <span class="sc">+</span></span>
+<span id="cb60-189"><a href="#cb60-189" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"#6e00ff"</span>), <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb60-190"><a href="#cb60-190" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb60-191"><a href="#cb60-191" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">"mean"</span>, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">23</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">fill=</span><span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb60-192"><a href="#cb60-192" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Região"</span>)<span class="sc">+</span></span>
+<span id="cb60-193"><a href="#cb60-193" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-194"><a href="#cb60-194" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-195"><a href="#cb60-195" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-196"><a href="#cb60-196" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-197"><a href="#cb60-197" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-198"><a href="#cb60-198" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-199"><a href="#cb60-199" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/box_regiao.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-200"><a href="#cb60-200" aria-hidden="true" tabindex="-1"></a>(hist8 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>regiao)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"#6e00ff"</span>) <span class="sc">+</span></span>
+<span id="cb60-201"><a href="#cb60-201" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Região"</span>, <span class="at">y=</span><span class="st">"Frequência absoluta"</span>) <span class="sc">+</span></span>
+<span id="cb60-202"><a href="#cb60-202" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-203"><a href="#cb60-203" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-204"><a href="#cb60-204" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-205"><a href="#cb60-205" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-206"><a href="#cb60-206" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-207"><a href="#cb60-207" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-208"><a href="#cb60-208" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-209"><a href="#cb60-209" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/hist_regiao.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-210"><a href="#cb60-210" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------- MEDIA PACIENTES ---------------- #</span></span>
+<span id="cb60-211"><a href="#cb60-211" aria-hidden="true" tabindex="-1"></a>(box_9 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="st">""</span>), <span class="at">y=</span>media_pacientes)) <span class="sc">+</span></span>
+<span id="cb60-212"><a href="#cb60-212" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"#6e00ff"</span>), <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb60-213"><a href="#cb60-213" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb60-214"><a href="#cb60-214" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">"mean"</span>, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">23</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">fill=</span><span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb60-215"><a href="#cb60-215" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Média de Pacientes"</span>)<span class="sc">+</span></span>
+<span id="cb60-216"><a href="#cb60-216" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-217"><a href="#cb60-217" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-218"><a href="#cb60-218" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-219"><a href="#cb60-219" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-220"><a href="#cb60-220" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-221"><a href="#cb60-221" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-222"><a href="#cb60-222" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/box_media_pacientes.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-223"><a href="#cb60-223" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-224"><a href="#cb60-224" aria-hidden="true" tabindex="-1"></a>(hist9 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>media_pacientes)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"#6e00ff"</span>) <span class="sc">+</span></span>
+<span id="cb60-225"><a href="#cb60-225" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Média de Pacientes"</span>, <span class="at">y=</span><span class="st">"Frequência absoluta"</span>) <span class="sc">+</span></span>
+<span id="cb60-226"><a href="#cb60-226" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-227"><a href="#cb60-227" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-228"><a href="#cb60-228" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-229"><a href="#cb60-229" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-230"><a href="#cb60-230" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-231"><a href="#cb60-231" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-232"><a href="#cb60-232" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-233"><a href="#cb60-233" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/hist_media_pacientes.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-234"><a href="#cb60-234" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-235"><a href="#cb60-235" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------- MEDIA PACIENTES ---------------- #</span></span>
+<span id="cb60-236"><a href="#cb60-236" aria-hidden="true" tabindex="-1"></a>(box_10 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="st">""</span>), <span class="at">y=</span>quant_enfermeiros)) <span class="sc">+</span></span>
+<span id="cb60-237"><a href="#cb60-237" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"#6e00ff"</span>), <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb60-238"><a href="#cb60-238" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb60-239"><a href="#cb60-239" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">"mean"</span>, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">23</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">fill=</span><span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb60-240"><a href="#cb60-240" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Quantidade de Enfermeiros"</span>)<span class="sc">+</span></span>
+<span id="cb60-241"><a href="#cb60-241" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-242"><a href="#cb60-242" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-243"><a href="#cb60-243" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-244"><a href="#cb60-244" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-245"><a href="#cb60-245" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-246"><a href="#cb60-246" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-247"><a href="#cb60-247" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/box_quant_enfermeiros.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-248"><a href="#cb60-248" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-249"><a href="#cb60-249" aria-hidden="true" tabindex="-1"></a>(hist10 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>quant_enfermeiros)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"#6e00ff"</span>) <span class="sc">+</span></span>
+<span id="cb60-250"><a href="#cb60-250" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Quantidade de Enfermeiros"</span>, <span class="at">y=</span><span class="st">"Frequência absoluta"</span>) <span class="sc">+</span></span>
+<span id="cb60-251"><a href="#cb60-251" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-252"><a href="#cb60-252" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-253"><a href="#cb60-253" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-254"><a href="#cb60-254" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-255"><a href="#cb60-255" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-256"><a href="#cb60-256" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-257"><a href="#cb60-257" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-258"><a href="#cb60-258" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/hist_quant_enfermeiros.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-259"><a href="#cb60-259" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-260"><a href="#cb60-260" aria-hidden="true" tabindex="-1"></a><span class="co"># ------------------- SERVICOS DISPONIVEIS ---------------- #</span></span>
+<span id="cb60-261"><a href="#cb60-261" aria-hidden="true" tabindex="-1"></a>(box_11 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span><span class="fu">factor</span>(<span class="st">""</span>), <span class="at">y=</span>servicos_disponiveis)) <span class="sc">+</span></span>
+<span id="cb60-262"><a href="#cb60-262" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_boxplot</span>(<span class="at">fill=</span><span class="fu">c</span>(<span class="st">"#6e00ff"</span>), <span class="at">width =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb60-263"><a href="#cb60-263" aria-hidden="true" tabindex="-1"></a>    <span class="fu">guides</span>(<span class="at">fill=</span><span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb60-264"><a href="#cb60-264" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_summary</span>(<span class="at">fun.y=</span><span class="st">"mean"</span>, <span class="at">geom=</span><span class="st">"point"</span>, <span class="at">shape=</span><span class="dv">23</span>, <span class="at">size=</span><span class="dv">3</span>, <span class="at">fill=</span><span class="st">"white"</span>)<span class="sc">+</span></span>
+<span id="cb60-265"><a href="#cb60-265" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">""</span>, <span class="at">y=</span><span class="st">"Serviços Disponíveis"</span>)<span class="sc">+</span></span>
+<span id="cb60-266"><a href="#cb60-266" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-267"><a href="#cb60-267" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-268"><a href="#cb60-268" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-269"><a href="#cb60-269" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-270"><a href="#cb60-270" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-271"><a href="#cb60-271" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line.y =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-272"><a href="#cb60-272" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/box_servicos_disponiveis.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span>
+<span id="cb60-273"><a href="#cb60-273" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-274"><a href="#cb60-274" aria-hidden="true" tabindex="-1"></a>(hist11 <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(dados, <span class="fu">aes</span>(<span class="at">x=</span>servicos_disponiveis)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">fill =</span> <span class="st">"#6e00ff"</span>) <span class="sc">+</span></span>
+<span id="cb60-275"><a href="#cb60-275" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">x=</span><span class="st">"Serviços Disponíveis"</span>, <span class="at">y=</span><span class="st">"Frequência absoluta"</span>) <span class="sc">+</span></span>
+<span id="cb60-276"><a href="#cb60-276" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb60-277"><a href="#cb60-277" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="at">axis.title.y=</span><span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-278"><a href="#cb60-278" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.title.x =</span> <span class="fu">element_text</span>(<span class="at">colour=</span><span class="st">"black"</span>, <span class="at">size=</span><span class="dv">12</span>),</span>
+<span id="cb60-279"><a href="#cb60-279" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">colour =</span> <span class="st">"black"</span>, <span class="at">size=</span><span class="fl">9.5</span>),</span>
+<span id="cb60-280"><a href="#cb60-280" aria-hidden="true" tabindex="-1"></a>          <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb60-281"><a href="#cb60-281" aria-hidden="true" tabindex="-1"></a>          <span class="at">axis.line =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">"black"</span>)))</span>
+<span id="cb60-282"><a href="#cb60-282" aria-hidden="true" tabindex="-1"></a> </span>
+<span id="cb60-283"><a href="#cb60-283" aria-hidden="true" tabindex="-1"></a><span class="fu">ggsave</span>(<span class="st">"img/hist_servicos_disponiveis.pdf"</span>,<span class="at">width =</span> <span class="dv">238</span>, <span class="at">height =</span> <span class="dv">163</span>, <span class="at">units =</span> <span class="st">"mm"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 </section>

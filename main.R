@@ -107,6 +107,14 @@ summary(v_modelo3)
 modelo12 <- lm(log(tempo_internacao) ~ ., data = dados_treino)
 VIF(modelo12)
 
+residuos12 <- modelo12$residuals
+shapiro.test(residuos12)
+bptest(modelo12)
+
+pdf(file="img/res_mod12.pdf")
+plot(residuos12)
+dev.off()
+
 ## Remoção de variáveis correlacionadas
 modelo22 <- lm(log(tempo_internacao) ~ ., data = dados_treino %>% mutate(
     quant_leitos = NULL,
@@ -116,6 +124,14 @@ modelo22 <- lm(log(tempo_internacao) ~ ., data = dados_treino %>% mutate(
 ))
 VIF(modelo22)
 
+residuos22 <- modelo22$residuals
+shapiro.test(residuos22)
+bptest(modelo22)
+
+pdf(file="img/res_mod22.pdf")
+plot(residuos22)
+dev.off()
+
 modelo32 <- step(modelo22, direction = "both")
 #modelo32 <- lm(log(tempo_internacao) ~ idade + prop_raio_x_torax_rotina + regiao + servicos_disponiveis2,dados_treino)
 summary(modelo32)
@@ -123,8 +139,11 @@ summary(modelo32)
 # Teste dos pressupostos para o segundo modelo
 residuos32 <- modelo32$residuals
 shapiro.test(residuos32)
-plot(residuos32)
 bptest(modelo32)
+
+pdf(file="img/res_mod32.pdf")
+plot(residuos32)
+dev.off()
 
 # Medidas de ajuste do segundo modelo
 rse32 <- sigma(modelo32)
@@ -146,6 +165,7 @@ res_valid <- dados_valid$tempo_internacao - prev_tempo_internacao
 rmse_valid <- sqrt(mean(res_valid))
 shapiro.test(res_valid)
 plot(res_valid)
+
 
 # Amostra de Validação
 v_modelo32 <- lm(log(tempo_internacao) ~ idade + prop_raio_x_torax_rotina + regiao + servicos_disponiveis2,dados_valid)
