@@ -10,7 +10,7 @@ format: html
 #| message: false
 #| echo: false
 if (!require(pacman)) install.packages("pacman")
-pacman::p_load(tidyverse,readxl,GGally,knitr,MASS,xtable,regclass,lmtest,car)
+pacman::p_load(tidyverse,readxl,GGally,knitr,MASS,xtable,regclass)
 ```
 
 ```{r}
@@ -39,12 +39,32 @@ index_treino <- sort(sample(indexes, 60))
 index_valid <- indexes[!(indexes %in% index_treino)]
 dados_treino <- dados_trat[index_treino, ]
 dados_valid <- dados_trat[index_valid, ]
+
+#kable(head(dados),align='l')
 ```
+
+
+
+```{r}
+#| echo: false
+
+# Separação em variáveis respostas e explicativas
+y_1 <- dados_treino[c("tempo_internacao")]
+
+y_2 <- dados_treino[c("quant_enfermeiros")]
+
+X <- dados_treino[!names(dados_treino) %in% c("tempo_internacao", "quant_enfermeiros")]
+```
+
 
 # Correlação das variáveis
 ```{r}
 #| echo: false
 corr1 <- cor(dados_treino)
+
+xtable(corr)
+
+kable(corr1[,1])
 ```
 
 ```{r}
@@ -59,42 +79,65 @@ kable(cor(dados_treino)[corr_index, corr_index])
 ## Hipotese 1
 Espera-se	 que	 o	 número	 de	 enfermeira(o)s	 esteja	 relacionado	 às	 instalações e	 serviços	disponíveis	através de	um	modelo	de	segunda	ordem.	Suspeita-se	também	que	varie	segundo	a	região.
 
+$$Y = \beta_0 + \beta_1 X_{i1}^{2} + \beta_2 X_{i2} + \epsilon
+$$
+
 ```{r}
 dadosteste<-dados_treino %>%
             mutate (regiao = as.factor(regiao),
                     servicos_disponiveis2= servicos_disponiveis^2)
                     
-modelo0 <- lm(quant_enfermeiros ~ ., data = dadosteste)
+modelo0 <- lm(log(quant_enfermeiros) ~ idade + prob_infeccao + prop_culturas_rotina + prop_raio_x_torax_rotina + quant_leitos + filiacao_escola_medicina + regiao + media_pacientes + servicos_disponiveis, data=dadosteste)
 summary(modelo0)
 
-shapiro.test(log(dados_treino$quant_enfermeiros))
-anova <- aov(dadosteste$lnmed ~ dadosteste$regiao)
-summary(anova)
-
-VIF(modelo0)
+modelo0_stepwise <- step(modelo0, direction = "both")
+summary(modelo0_stepwise)
 
 modelo1 <- lm(log(quant_enfermeiros) ~ ., data=dadosteste)
 summary(modelo1)
+
+modelo1_stepwise <- step(modelo1, direction = "both")
+summary(modelo1_stepwise)
+
+#modelo5<- lm(quant_enfermeiros ~ quant_leitos + servicos_disponiveis + regiao, data=dadosteste)
+#summary(modelo5)
+
+#modelo6<- lm(quant_enfermeiros ~ quant_leitos + servicos_disponiveis:regiao, data=dadosteste)
+#summary(modelo6)
+
+#modelo7<- lm(quant_enfermeiros ~ servicos_disponiveis:regiao, data=dadosteste)
+#summary(modelo7)
+
+#modelo7<- lm(quant_enfermeiros ~ servicos_disponiveis + servicos_disponiveis2 + regiao, data=dadosteste)
+#summary(modelo7)
+
+modelo9<- lm(quant_enfermeiros ~ servicos_disponiveis2 + regiao, data=dadosteste)
+summary(modelo9)
+
+modelo10<- lm(quant_enfermeiros ~ servicos_disponiveis, data=dadosteste)
+summary(modelo10)
+
+
+# *******************
+modelo8<- lm(quant_enfermeiros ~ quant_leitos + servicos_disponiveis2 + servicos_disponiveis:regiao, data=dadosteste)
+summary(modelo8)
+
+
+
+modelo4<-lm(quant_enfermeiros ~ quant_leitos, data=dadosteste)
+summary(modelo4)
+
+modelo0 <- lm(quant_enfermeiros ~ ., data = dadosteste %>% mutate(tempo_internacao = NULL))
+VIF(modelo0)
+modelo1 <- lm(quant_enfermeiros ~ ., data = dados %>% mutate(tempo_internacao = NULL, quant_leitos = NULL))
 VIF(modelo1)
+modelo <- step(modelo1, direction = "both")
+summary(modelo)
+shapiro.test(modelo$residuals)
+var(modelo$residuals)
+var(dados)
+# *******************
 
-modelof <- step(modelo1, direction = "both")
-summary(modelof)
-shapiro.test(modelof$residuals)
-
-modelo_comp <- lm(quant_enfermeiros ~ ., dadosteste)
-shapiro.test(modelo_comp$residuals)
-modelo_comp_ln <- lm(log(quant_enfermeiros) ~ ., dadosteste)
-shapiro.test(modelo_comp_ln$residuals)
-modelo_comp_div <- lm(1/quant_enfermeiros ~ ., dadosteste)
-shapiro.test(modelo_comp_div$residuals)
-modelo_comp_raiz <- lm(sqrt(quant_enfermeiros) ~ ., dadosteste)
-shapiro.test(modelo_comp_raiz$residuals)
-summary(modelo_comp_raiz)
-
-modelof <- step(modelo_comp_raiz, direction = "both")
-summary(modelof)
-shapiro.test(modelof$residuals)
-bptest(modelof)
 ```
 
 
